@@ -23,12 +23,20 @@ This package provides a small, focused API for composing KML documents suitable 
 
 ---
 
+## Example Output 
+Using the example given on the [ForeFlight website](https://foreflight.com/support/user-map-shapes/) the below is generated using this Framework. 
+
+See `/Tests/ForeFlightKMLTests/UserMapShapesSampleFullTest.swift`
+
+<img width="615" height="770" alt="Image" src="https://github.com/user-attachments/assets/65da168d-e886-4ddf-8bc0-d4fa1f247331" />
+
 ## Minimal Quick Start
 
 ```swift
 import ForeFlightKML
 import Geodesy (we use this for Coordinate and relative positioniong)
 
+// Example: Airport Traffic Pattern
 let builder = ForeFlightKMLBuilder(documentName: "Airport with ATZ")
 
 // Runway centerline
@@ -47,7 +55,7 @@ builder.addLineCircle(
 )
 
 let url = FileManager.default.temporaryDirectory.appendingPathComponent("shapes.kml")
-try return builder.build().write(to: url, atomically: true, encoding: .utf8)
+try builder.build().write(to: url, atomically: true, encoding: .utf8)
 presentShareSheet(with: url)
 ```
 
@@ -57,7 +65,9 @@ presentShareSheet(with: url)
 ## API quick reference (important types)
 
 - `ForeFlightKMLBuilder` — builder for the KML document. Methods: `addPlacemark(_:)`, `kmlString()`.
+- `Placemark` — a Feature containing a geometry (must implement `KMLElement`). Optionally attach a `KMLStyle`.
 - Geometry types: `Point`, `Line`, `LineCircle`, `LineSegment` (segment of a Circle), `Polygon`, `PolygonCircle` (filled circle), `PolygonSegment` (filled segment) `LinearRing`.
+- `Style` and substyles: `LineStyle`, `PolyStyle`, `IconStyle`, `LabelStyle`.
 - `KMLColor` — helper to create the aabbggrr color values used by KML.
 
 Full public API surface is visible in the package sources; the README examples show common usage patterns.
