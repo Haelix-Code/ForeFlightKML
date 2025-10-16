@@ -1,0 +1,15 @@
+{
+  "originHash" : "5b28eca03d1f7c0d9a7e902642ac3cd00b55d5e1cca6b81c60bf94de109a2a64",
+  "pins" : [
+    {
+      "identity" : "geodesy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/florianreinhart/Geodesy",
+      "state" : {
+        "revision" : "c72d7ea459c6eee4d041272c61f84df61d850091",
+        "version" : "0.2.2"
+      }
+    }
+  ],
+  "version" : 3
+}
