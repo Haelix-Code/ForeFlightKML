@@ -1,6 +1,15 @@
 {
-  "originHash" : "5b28eca03d1f7c0d9a7e902642ac3cd00b55d5e1cca6b81c60bf94de109a2a64",
+  "originHash" : "ff5c50a2d6953969dff659b425b0f2ab77cdc9af95fe7e2298a655036ff7a3db",
   "pins" : [
+    {
+      "identity" : "foreflightkml",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Haelix-Code/ForeFlightKML/",
+      "state" : {
+        "revision" : "573e10270008ce4ebbaaac14465afb2acd2beaf7",
+        "version" : "0.2.1"
+      }
+    },
     {
       "identity" : "geodesy",
       "kind" : "remoteSourceControl",
