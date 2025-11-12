@@ -28,7 +28,7 @@ Using the example given on the [ForeFlight website](https://foreflight.com/suppo
 
 See `/Tests/ForeFlightKMLTests/UserMapShapesSampleFullTest.swift`
 
-<img width="615" height="770" alt="Image" src="https://github.com/user-attachments/assets/65da168d-e886-4ddf-8bc0-d4fa1f247331" />
+<img width="615" height="770" alt="Image" src="/docs/example-output.png" />
 
 ## Minimal Quick Start
 
