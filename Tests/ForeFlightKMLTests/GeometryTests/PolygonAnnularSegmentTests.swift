@@ -123,7 +123,7 @@ final class PolygonAnnularSegmentTests: XCTestCase {
             outerRadius: 2000,
             startAngle: 45,
             endAngle: 50,
-            numberOfPoints: 16  // Fewer points for narrow arc
+            numberOfPoints: 16
         )
         
         builder.addPlacemark(Placemark(name: "Narrow", geometry: segment))
@@ -164,17 +164,7 @@ final class PolygonAnnularSegmentTests: XCTestCase {
         }
         
         let kml = builder.build()
-        let tempDir = FileManager.default.temporaryDirectory
-        let fileURL = tempDir.appendingPathComponent("AnnularSegments_Demo.kml")
-        
-        try kml.write(to: fileURL, atomically: true, encoding: .utf8)
-        
-        print("\n" + String(repeating: "=", count: 80))
-        print(" Annular Segments KML generated successfully!")
-        print(" Location: \(fileURL.path)")
-        print(" Open in Finder: open \(tempDir.path)")
-        print(String(repeating: "=", count: 80) + "\n")
-        
+    
         XCTAssertTrue(kml.contains("<Document>"))
         let placemarkCount = kml.components(separatedBy: "<Placemark>").count - 1
         XCTAssertEqual(placemarkCount, 4)
