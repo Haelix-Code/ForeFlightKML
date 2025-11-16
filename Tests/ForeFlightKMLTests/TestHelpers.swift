@@ -16,11 +16,11 @@ class XMLTestHelper {
             </Document>
             </kml>
             """
-        
+
         let data = Data(completeKML.utf8)
         return try XMLDocument(data: data, options: [])
     }
-    
+
     /// Extract all elements of a given name from XML, handling namespaces
     static func extractElements(named elementName: String, from xml: XMLDocument) throws -> [XMLElement] {
         // Try both with and without namespace prefix
@@ -29,9 +29,9 @@ class XMLTestHelper {
             "//kml:\(elementName)",
             "//gx:\(elementName)"
         ]
-        
+
         var allElements: [XMLElement] = []
-        
+
         for query in xpathQueries {
             do {
                 let nodes = try xml.nodes(forXPath: query)
@@ -40,10 +40,10 @@ class XMLTestHelper {
                 continue
             }
         }
-        
+
         return allElements
     }
-    
+
     /// Get text content from first element with given name, handling namespaces
     static func getTextContent(elementName: String, from xml: XMLDocument) throws -> String? {
         let elements = try extractElements(named: elementName, from: xml)
@@ -57,13 +57,13 @@ class XMLTestHelper {
             XCTAssertFalse(elements.isEmpty, "Missing required element: \(elementName)")
         }
     }
-    
+
     /// Parse coordinates string into array of coordinate components
     static func parseCoordinates(_ coordinateString: String) -> [(longitude: Double, latitude: Double, altitude: Double?)] {
         let lines = coordinateString.components(separatedBy: .newlines)
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
-        
+
         return lines.compactMap { line in
             let parts = line.components(separatedBy: ",")
             guard parts.count >= 2,
@@ -71,7 +71,7 @@ class XMLTestHelper {
                   let lat = Double(parts[1]) else {
                 return nil
             }
-            
+
             let alt = parts.count >= 3 ? Double(parts[2]) : nil
             return (longitude: lon, latitude: lat, altitude: alt)
         }

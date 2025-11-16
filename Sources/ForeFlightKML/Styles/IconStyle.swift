@@ -51,8 +51,7 @@ public struct IconStyle: KMLSubStyle {
     ///   - scale: Size multiplier for the icon (default: 1.3)
     /// - Returns: A new IconStyle configured for custom colored shapes
     public static func custom(type: CustomIconType, color: KMLColor? = nil, scale: Double? = 1.3)
-        -> IconStyle
-    {
+        -> IconStyle {
         let baseUrl = "http://maps.google.com/mapfiles/kml/"
         let href = "\(baseUrl)shapes/\(type.href).png"
         return IconStyle(href: href, color: color, scale: scale)

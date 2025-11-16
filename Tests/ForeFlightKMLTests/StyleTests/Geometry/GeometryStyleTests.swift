@@ -47,7 +47,7 @@ final class GeometryStylesTests: XCTestCase {
             Coordinate(latitude: 51.5, longitude: -0.1),
             Coordinate(latitude: 51.6, longitude: -0.1),
             Coordinate(latitude: 51.6, longitude: -0.2),
-            Coordinate(latitude: 51.5, longitude: -0.2),
+            Coordinate(latitude: 51.5, longitude: -0.2)
         ]
 
         builder.addPolygon(

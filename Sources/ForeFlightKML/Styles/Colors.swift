@@ -55,8 +55,7 @@ public struct KMLColor: Equatable, CustomStringConvertible {
     ///   - alpha: Alpha component (0.0-1.0, will be clamped). Default is 1.0 (opaque)
     /// - Returns: A new KMLColor
     public static func fromRGB(red: Double, green: Double, blue: Double, alpha: Double = 1.0)
-        -> KMLColor
-    {
+        -> KMLColor {
         func clampAndScale(_ value: Double) -> Int {
             Int((max(0.0, min(1.0, value)) * 255.0).rounded())
         }

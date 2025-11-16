@@ -25,7 +25,7 @@ public struct PolyStyle: KMLSubStyle {
             "<PolyStyle>",
             "<color>\(color.kmlHexString)</color>",
             fill.map { "<fill>\($0 ? 1 : 0)</fill>" },
-            "</PolyStyle>",
+            "</PolyStyle>"
         ]
         return lines.compactMap { $0 }.joined(separator: "\n")
     }

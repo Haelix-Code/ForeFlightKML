@@ -20,7 +20,7 @@ final class UserMapShapesRecreationTests: XCTestCase {
             ("ypin", .yellow, -102.6009416726494), ("bpin", .blue, -102.3009416726494),
             ("gpin", .green, -102.0009416726494), ("ltbpin", .lightblue, -101.7009416726494),
             ("pkpin", .pink, -101.4009416726494), ("ppin", .purple, -101.1009416726494),
-            ("wpin", .white, -100.8009416726494),
+            ("wpin", .white, -100.8009416726494)
         ]
 
         for pushpin in pushpins {
@@ -287,7 +287,7 @@ final class UserMapShapesRecreationTests: XCTestCase {
             Coordinate(latitude: 31.61232452550777, longitude: -98.5428285617465),
             Coordinate(latitude: 31.7047397632289, longitude: -100.3170555137615),
             Coordinate(latitude: 29.97078684118979, longitude: -100.3694632201026),
-            Coordinate(latitude: 29.98839907481225, longitude: -97.94364952606627),
+            Coordinate(latitude: 29.98839907481225, longitude: -97.94364952606627)
         ]
 
         builder.addLine(
@@ -304,7 +304,7 @@ final class UserMapShapesRecreationTests: XCTestCase {
             Coordinate(latitude: 30.49650491542987, longitude: -98.96485321080908),
             Coordinate(latitude: 30.92214152160733, longitude: -98.95965359046227),
             Coordinate(latitude: 31.45369338953584, longitude: -99.09548335615463),
-            Coordinate(latitude: 31.57870338920791, longitude: -100.1097399038377),
+            Coordinate(latitude: 31.57870338920791, longitude: -100.1097399038377)
         ]
 
         builder.addPolygon(
@@ -327,7 +327,7 @@ final class UserMapShapesRecreationTests: XCTestCase {
             Coordinate(latitude: 30.4076916783399, longitude: -98.9725084035981),
             Coordinate(latitude: 30.23278723698756, longitude: -100.0984043086122),
             Coordinate(latitude: 30.02246950700159, longitude: -100.10906670613),
-            Coordinate(latitude: 30.03052269669343, longitude: -99.82245544757197),
+            Coordinate(latitude: 30.03052269669343, longitude: -99.82245544757197)
         ]
 
         builder.addPolygon(

@@ -9,7 +9,7 @@ public struct LinearRing: CoordinateContainer {
     public var altitude: Double?
     /// LinearRing doesn't define altitude mode (handled by parent Polygon)
     public var altitudeMode: AltitudeMode? { nil }
-    public var tessellate: Bool? = nil
+    public var tessellate: Bool?
 
     /// Create a new linear ring.
     /// - Parameters:
@@ -21,8 +21,7 @@ public struct LinearRing: CoordinateContainer {
 
         // Auto-close the ring if needed
         if let first = coordinates.first, let last = coordinates.last,
-            first.latitude != last.latitude || first.longitude != last.longitude
-        {
+            first.latitude != last.latitude || first.longitude != last.longitude {
             self.coordinates = coordinates + [first]
         } else {
             self.coordinates = coordinates
