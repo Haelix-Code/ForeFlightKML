@@ -1,6 +1,9 @@
 import GeodesySpherical
 
-// KML uses 3D geographic coordinates: longitude, latitude and altitude, in that order. The longitude and latitude components are in decimal degrees as defined by the World Geodetic System of 1984 (WGS-84). The vertical component (altitude) is measured in meters from the WGS84 EGM96 Geoid vertical datum.
+// KML uses 3D geographic coordinates: longitude, latitude and altitude, in that order.
+// The longitude and latitude components are in decimal degrees
+// as defined by the World Geodetic System of 1984 (WGS-84).
+// The vertical component (altitude) is measured in meters from the WGS84 EGM96 Geoid vertical datum.
 
 extension GeodesySpherical.Coordinate {
     public func kmlString() -> String {

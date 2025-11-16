@@ -13,7 +13,9 @@ struct MapViewRepresentable: UIViewRepresentable {
         map.delegate = context.coordinator
         map.showsUserLocation = true
         map.pointOfInterestFilter = .excludingAll
-        map.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.750188, longitude: -1.581566), latitudinalMeters: 2000, longitudinalMeters: 2000), animated: false)
+        map.setRegion(MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 51.750188, longitude: -1.581566), latitudinalMeters: 2000, longitudinalMeters: 2000),
+                      animated: false)
 
         let tap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
         tap.numberOfTapsRequired = 1

@@ -1,0 +1,8 @@
+excluded:
+  - .build
+  - Tests/ForeFlightKMLTests/UserMapShapesSampleIndividualTests.swift
+  - Tests/ForeFlightKMLTests/UserMapShapesSampleFullTest.swift
+  - Example/ForeFlightKMLDemo/
+identifier_name:
+  min_length: 1
+  max_length: 40

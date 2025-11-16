@@ -80,7 +80,7 @@ public final class ForeFlightKMLBuilder {
     }
 
     /// Produce the KML document as `Data` using the given text encoding.
-    /// - Parameter encoding: The `String.Encoding` to use when converting the KML string into data. Defaults to `.utf8`.
+    /// - Parameter encoding: The `String.Encoding` to use when converting the KML string into data. 
     /// - Returns: `Data` containing the encoded KML, or an empty `Data` if encoding fails.
     public func kmlData(encoding: String.Encoding = .utf8) -> Data {
         return kmlString().data(using: encoding) ?? Data()

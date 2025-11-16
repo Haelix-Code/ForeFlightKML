@@ -59,21 +59,34 @@ class XMLTestHelper {
     }
 
     /// Parse coordinates string into array of coordinate components
-    static func parseCoordinates(_ coordinateString: String) -> [(longitude: Double, latitude: Double, altitude: Double?)] {
+    static func parseCoordinates(_ coordinateString: String) -> [CoordinateComponent] {
         let lines = coordinateString.components(separatedBy: .newlines)
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
 
         return lines.compactMap { line in
             let parts = line.components(separatedBy: ",")
-            guard parts.count >= 2,
-                  let lon = Double(parts[0]),
-                  let lat = Double(parts[1]) else {
-                return nil
-            }
-
-            let alt = parts.count >= 3 ? Double(parts[2]) : nil
-            return (longitude: lon, latitude: lat, altitude: alt)
+            return CoordinateComponent(from: parts)
         }
+    }
+}
+
+struct CoordinateComponent {
+    let longitude: Double
+    let latitude: Double
+    let altitude: Double?
+}
+
+extension CoordinateComponent {
+    init?(from parts: [String]) {
+        guard parts.count >= 2,
+              let lon = Double(parts[0]),
+              let lat = Double(parts[1]) else {
+            return nil
+        }
+
+        self.longitude = lon
+        self.latitude = lat
+        self.altitude = parts.count >= 3 ? Double(parts[2]) : nil
     }
 }

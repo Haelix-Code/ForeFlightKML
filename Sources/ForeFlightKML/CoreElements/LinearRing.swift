@@ -1,6 +1,8 @@
 import GeodesySpherical
 
-/// Defines a closed line string, typically the outer boundary of a Polygon. Optionally, a LinearRing can also be used as the inner boundary of a Polygon to create holes in the Polygon. A Polygon can contain multiple <LinearRing> elements used as inner boundaries.
+/// Defines a closed line string, typically the outer boundary of a Polygon.
+/// Optionally, a LinearRing can also be used as the inner boundary of a Polygon to create holes in the Polygon.
+/// A Polygon can contain multiple <LinearRing> elements used as inner boundaries.
 /// Note: LinearRing does NOT support altitudeMode - that is specified at the Polygon level.
 /// However, individual coordinates can still have altitude values.
 public struct LinearRing: CoordinateContainer {

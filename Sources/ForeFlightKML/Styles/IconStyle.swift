@@ -86,9 +86,9 @@ public struct IconStyle: KMLSubStyle {
 /// These are the "paddle" style icons that only support fixed colors.
 public enum PredefinedIconType: String {
     case pushpin
-    case circle = "circle"
-    case square = "square"
-    case diamond = "diamond"
+    case circle
+    case square
+    case diamond
 }
 
 /// Icon shapes that support custom colors.
