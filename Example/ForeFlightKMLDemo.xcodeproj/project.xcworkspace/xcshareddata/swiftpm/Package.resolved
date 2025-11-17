@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Haelix-Code/ForeFlightKML/",
       "state" : {
-        "revision" : "573e10270008ce4ebbaaac14465afb2acd2beaf7",
-        "version" : "0.2.1"
+        "revision" : "25a2e22beae7c4a3ee0c0082e8da42c8f1e87eda",
+        "version" : "0.3.0"
       }
     },
     {
