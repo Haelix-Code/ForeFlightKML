@@ -55,8 +55,7 @@ public struct KMLColor: Equatable, CustomStringConvertible {
     ///   - alpha: Alpha component (0.0-1.0, will be clamped). Default is 1.0 (opaque)
     /// - Returns: A new KMLColor
     public static func fromRGB(red: Double, green: Double, blue: Double, alpha: Double = 1.0)
-        -> KMLColor
-    {
+        -> KMLColor {
         func clampAndScale(_ value: Double) -> Int {
             Int((max(0.0, min(1.0, value)) * 255.0).rounded())
         }
@@ -69,6 +68,7 @@ public struct KMLColor: Equatable, CustomStringConvertible {
         )
     }
 
+    // swiftlint:disable function_body_length
     /// Create a color from a hex string
     /// - Parameter hex: Hex string in format "#RGB", "#RRGGBB", "#AARRGGBB", "RGB", "RRGGBB", or "AARRGGBB"
     /// - Returns: Result containing KMLColor
@@ -147,6 +147,7 @@ public struct KMLColor: Equatable, CustomStringConvertible {
             return .black
         }
     }
+    // swiftlint:enable function_body_length
 
     /// Create a color from KML hex format (aabbggrr)
     /// - Parameter kmlHex: Hex string in KML format "aabbggrr"
@@ -220,7 +221,7 @@ public struct KMLColor: Equatable, CustomStringConvertible {
             switch self {
             case .invalidHexFormat(let hex):
                 return
-                    "Invalid hex color format: '\(hex)'. Expected formats: RGB, RRGGBB, AARRGGBB (with optional # prefix)"
+                    "Invalid hex color format: '\(hex)'. Expected formats: RGB, RRGGBB, AARRGGBB (optional # prefix)"
             case .invalidKMLHexFormat(let hex):
                 return
                     "Invalid KML hex color format: '\(hex)'. Expected format: aabbggrr (8 hex characters)"

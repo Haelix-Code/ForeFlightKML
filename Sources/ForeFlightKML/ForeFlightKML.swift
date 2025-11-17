@@ -16,7 +16,7 @@ public final class ForeFlightKMLBuilder {
         "xmlns": "http://www.opengis.net/kml/2.2",
         "xmlns:gx": "http://www.google.com/kml/ext/2.2",
         "xmlns:kml": "http://www.opengis.net/kml/2.2",
-        "xmlns:atom": "http://www.w3.org/2005/Atom",
+        "xmlns:atom": "http://www.w3.org/2005/Atom"
     ]
 
     /// Create a new builder.
@@ -80,7 +80,7 @@ public final class ForeFlightKMLBuilder {
     }
 
     /// Produce the KML document as `Data` using the given text encoding.
-    /// - Parameter encoding: The `String.Encoding` to use when converting the KML string into data. Defaults to `.utf8`.
+    /// - Parameter encoding: The `String.Encoding` to use when converting the KML string into data. 
     /// - Returns: `Data` containing the encoded KML, or an empty `Data` if encoding fails.
     public func kmlData(encoding: String.Encoding = .utf8) -> Data {
         return kmlString().data(using: encoding) ?? Data()

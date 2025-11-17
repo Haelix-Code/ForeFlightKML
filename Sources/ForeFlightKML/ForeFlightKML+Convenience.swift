@@ -245,4 +245,50 @@ extension ForeFlightKMLBuilder {
         let placemark = Placemark(name: name, geometry: segment, style: style)
         return addPlacemark(placemark)
     }
+
+    /// Add a filled annular (ring) segment polygon.
+    /// This creates a segment between two radii, excluding the inner circle area.
+    /// - Parameters:
+    ///   - name: Display name in ForeFlight (optional)
+    ///   - center: Center point of the segment
+    ///   - innerRadius: Inner radius in meters (the "hole" size)
+    ///   - outerRadius: Outer radius in meters
+    ///   - startAngle: Starting angle in degrees (0° = North, clockwise)
+    ///   - endAngle: Ending angle in degrees (0° = North, clockwise)
+    ///   - numberOfPoints: Number of points for each arc (default: 64)
+    ///   - altitude: Altitude in meters (optional)
+    ///   - tessellate: Whether to follow ground contours (default: false)
+    ///   - style: Polygon style defining outline and optional fill (optional)
+    /// - Returns: Self for method chaining
+    @discardableResult
+    public func addPolygonAnnularSegment(
+        name: String? = nil,
+        center: Coordinate,
+        innerRadius: Double,
+        outerRadius: Double,
+        startAngle: Double,
+        endAngle: Double,
+        numberOfPoints: Int = 64,
+        altitude: Double? = nil,
+        tessellate: Bool = false,
+        style: PolygonStyle? = nil
+    ) -> Self {
+        precondition(innerRadius > 0, "Inner radius must be positive")
+        precondition(outerRadius > innerRadius, "Outer radius must be greater than inner radius")
+        precondition(numberOfPoints >= 3, "Need at least 3 segments for an annular segment")
+
+        let segment = PolygonAnnularSegment(
+            center: center,
+            innerRadius: innerRadius,
+            outerRadius: outerRadius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            numberOfPoints: numberOfPoints,
+            altitude: altitude,
+            tessellate: tessellate
+        )
+
+        let placemark = Placemark(name: name, geometry: segment, style: style)
+        return addPlacemark(placemark)
+    }
 }

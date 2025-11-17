@@ -50,10 +50,10 @@ struct ContentView: View {
         lastTapCoordinate = coord
 
         let kml = KMLGenerator.generateCircleKML(center: coord, radiusMeters: defaultRadiusMeters)
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
-        
+
         let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(dateFormatter.string(from: Date())).kml")
         do {
             try kml.data(using: .utf8)?.write(to: tmpURL)

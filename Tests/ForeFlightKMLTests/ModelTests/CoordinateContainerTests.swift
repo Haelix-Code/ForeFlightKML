@@ -32,7 +32,7 @@ final class CoordinateContainerTests: XCTestCase {
     func testKmlWithTessellateAndAltitude() {
         let coords = [
             Coordinate(latitude: 1, longitude: 2),
-            Coordinate(latitude: 3, longitude: 4),
+            Coordinate(latitude: 3, longitude: 4)
         ]
         let container = TestContainerWithTessellate(
             coordinates: coords,

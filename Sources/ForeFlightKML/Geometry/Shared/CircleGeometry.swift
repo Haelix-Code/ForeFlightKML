@@ -16,8 +16,7 @@ internal enum CircleGeometry {
         }
 
         if let first = circlePoints.first, let last = circlePoints.last,
-            first.longitude != last.longitude || first.latitude != last.latitude
-        {
+            first.longitude != last.longitude || first.latitude != last.latitude {
             circlePoints.append(first)
         }
 

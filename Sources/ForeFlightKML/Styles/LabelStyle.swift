@@ -18,7 +18,7 @@ public struct LabelStyle: KMLSubStyle {
         let lines = [
             "<LabelStyle>",
             "<color>\(color.kmlHexString)</color>",
-            "</LabelStyle>",
+            "</LabelStyle>"
         ]
         return lines.joined(separator: "\n")
     }

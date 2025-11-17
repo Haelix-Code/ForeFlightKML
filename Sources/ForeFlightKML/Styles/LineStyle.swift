@@ -24,7 +24,7 @@ public struct LineStyle: KMLSubStyle {
             "<LineStyle>",
             "<color>\(color.kmlHexString)</color>",
             width.map { "<width>\($0)</width>" },
-            "</LineStyle>",
+            "</LineStyle>"
         ]
         return lines.compactMap { $0 }.joined(separator: "\n")
     }

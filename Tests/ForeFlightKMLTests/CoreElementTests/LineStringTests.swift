@@ -7,7 +7,7 @@ final class LineStringTests: XCTestCase {
     func testKmlWithAltitudeAndTessellate() {
         let coords = [
             Coordinate(latitude: 2, longitude: 3),
-            Coordinate(latitude: 4, longitude: 5),
+            Coordinate(latitude: 4, longitude: 5)
         ]
         let line = LineString(
             coordinates: coords, altitude: 100.0, altitudeMode: .absolute, tessellate: true)
