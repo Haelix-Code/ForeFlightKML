@@ -245,7 +245,7 @@ extension ForeFlightKMLBuilder {
         let placemark = Placemark(name: name, geometry: segment, style: style)
         return addPlacemark(placemark)
     }
-    
+
     /// Add a filled annular (ring) segment polygon.
     /// This creates a segment between two radii, excluding the inner circle area.
     /// - Parameters:
@@ -276,7 +276,7 @@ extension ForeFlightKMLBuilder {
         precondition(innerRadius > 0, "Inner radius must be positive")
         precondition(outerRadius > innerRadius, "Outer radius must be greater than inner radius")
         precondition(numberOfPoints >= 3, "Need at least 3 segments for an annular segment")
-        
+
         let segment = PolygonAnnularSegment(
             center: center,
             innerRadius: innerRadius,
@@ -287,7 +287,7 @@ extension ForeFlightKMLBuilder {
             altitude: altitude,
             tessellate: tessellate
         )
-        
+
         let placemark = Placemark(name: name, geometry: segment, style: style)
         return addPlacemark(placemark)
     }
