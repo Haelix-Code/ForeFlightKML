@@ -6,13 +6,23 @@ import ForeFlightKML
 enum KMLGenerator {
     static func generateCircleKML(center: CLLocationCoordinate2D, radiusMeters: Double) -> String {
         let builder = ForeFlightKMLBuilder(documentName: "Foreflight KML Demo")
-        
-        let centerCoordinate = Coordinate(latitude: center.latitude, longitude: center.longitude)
-        
-        builder.addLineCircle(name: "Circle", center: centerCoordinate, radiusMeters: radiusMeters, numberOfPoints: 100, style: PathStyle(color: .black))
 
-        builder.addPolygonCircle(name: "Filled Circle" ,center: centerCoordinate, radiusMeters: radiusMeters * 2, style: PolygonStyle(outlineColor: .black, fillColor: .warning.withAlpha(0.3)))
-        
+        let centerCoordinate = Coordinate(latitude: center.latitude, longitude: center.longitude)
+
+        builder.addLineCircle(
+            name: "Circle",
+            center: centerCoordinate,
+            radiusMeters: radiusMeters,
+            numberOfPoints: 100,
+            style: PathStyle(color: .black)
+        )
+
+        builder.addPolygonCircle(
+            name: "Filled Circle",
+            center: centerCoordinate,
+            radiusMeters: radiusMeters * 2,
+            style: PolygonStyle(outlineColor: .black, fillColor: .warning.withAlpha(0.3)))
+
         return builder.build()
     }
 

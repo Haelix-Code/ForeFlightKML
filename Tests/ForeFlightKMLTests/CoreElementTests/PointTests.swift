@@ -24,7 +24,7 @@ final class PointTests: XCTestCase {
         try XMLTestHelper.validateStructure(
             xml,
             expectedElements: [
-                "Point", "gx:drawOrder", "coordinates",
+                "Point", "gx:drawOrder", "coordinates"
             ])
 
         let drawOrder = try XMLTestHelper.getTextContent(elementName: "gx:drawOrder", from: xml)
@@ -59,7 +59,7 @@ final class PointTests: XCTestCase {
         try XMLTestHelper.validateStructure(
             xml,
             expectedElements: [
-                "Point", "drawOrder", "altitudeMode", "coordinates",
+                "Point", "drawOrder", "altitudeMode", "coordinates"
             ])
 
         let altitudeMode = try XMLTestHelper.getTextContent(elementName: "altitudeMode", from: xml)

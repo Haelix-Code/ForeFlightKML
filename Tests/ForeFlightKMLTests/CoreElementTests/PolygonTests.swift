@@ -11,7 +11,7 @@ final class PolygonTests: XCTestCase {
     func testKmlWithOuterOnly() {
         let outer = makeRing([
             Coordinate(latitude: 10, longitude: 20),
-            Coordinate(latitude: 30, longitude: 40),
+            Coordinate(latitude: 30, longitude: 40)
         ])
         let polygon = Polygon(outer: outer)
         let kml = polygon.kmlString()
@@ -37,13 +37,13 @@ final class PolygonTests: XCTestCase {
         let outer = makeRing(
             [
                 Coordinate(latitude: 0, longitude: 0),
-                Coordinate(latitude: 1, longitude: 1),
+                Coordinate(latitude: 1, longitude: 1)
             ],
             altitude: 50.0)
         let inner = makeRing(
             [
                 Coordinate(latitude: 2, longitude: 2),
-                Coordinate(latitude: 3, longitude: 3),
+                Coordinate(latitude: 3, longitude: 3)
             ], altitude: 50.0)
         let polygon = Polygon(
             outer: outer, inner: [inner], altitudeMode: .absolute, tessellate: false)
@@ -62,12 +62,12 @@ final class PolygonTests: XCTestCase {
         let outer = makeRing(
             [
                 Coordinate(latitude: 0, longitude: 0),
-                Coordinate(latitude: 1, longitude: 1),
+                Coordinate(latitude: 1, longitude: 1)
             ], altitude: nil)
         let inner = makeRing(
             [
                 Coordinate(latitude: 2, longitude: 2),
-                Coordinate(latitude: 3, longitude: 3),
+                Coordinate(latitude: 3, longitude: 3)
             ], altitude: 20.0)
         let polygon = Polygon(
             outer: outer, inner: [inner], altitudeMode: .absolute, tessellate: false)
@@ -85,12 +85,12 @@ final class PolygonTests: XCTestCase {
         let outer = makeRing(
             [
                 Coordinate(latitude: 0, longitude: 0),
-                Coordinate(latitude: 1, longitude: 1),
+                Coordinate(latitude: 1, longitude: 1)
             ], altitude: nil)
         let inner = makeRing(
             [
                 Coordinate(latitude: 2, longitude: 2),
-                Coordinate(latitude: 3, longitude: 3),
+                Coordinate(latitude: 3, longitude: 3)
             ], altitude: nil)
         let polygon = Polygon(outer: outer, inner: [inner], tessellate: false)
         let kml = polygon.kmlString()

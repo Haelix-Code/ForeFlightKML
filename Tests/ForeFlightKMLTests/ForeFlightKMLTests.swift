@@ -23,7 +23,7 @@ final class ForeFlightKMLTests: XCTestCase {
         let builder = ForeFlightKMLBuilder(documentName: "My Test KML")
         let start = Coordinate(latitude: 33.29349602069717, longitude: -97.83722968666947)
         let end = Coordinate(latitude: 31.29050449094128, longitude: -97.828182763451)
-        
+
         builder.addLine(name: "Test Line", coordinates: [start, end], style: .init(color: .black))
         let kml = builder.kmlString()
 
@@ -53,7 +53,7 @@ final class ForeFlightKMLTests: XCTestCase {
     func testBuildBasicCircle() throws {
         let builder = ForeFlightKMLBuilder(documentName: "My Test KML")
         let center = Coordinate(latitude: 38.8700980, longitude: -77.055967)
-        
+
         builder.addLineCircle(name: "500m circle", center: center, radiusMeters: 500)
         let kml = builder.kmlString()
 
