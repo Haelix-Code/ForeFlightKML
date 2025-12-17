@@ -291,7 +291,7 @@ extension ForeFlightKMLBuilder {
         let placemark = Placemark(name: name, geometry: segment, style: style)
         return addPlacemark(placemark)
     }
-    
+
     @discardableResult
     public func addLabel(
         _ text: String,

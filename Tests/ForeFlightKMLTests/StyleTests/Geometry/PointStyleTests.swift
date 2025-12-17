@@ -46,7 +46,7 @@ final class PointStylesTests: XCTestCase {
 
         XCTAssertNotEqual(style1.id(), style2.id())
     }
-    
+
     func test_pointStyle_requiresKMZ_followsIconStyle() {
         let s1 = PointStyle(icon: .transparentLocalPng(tint: .white))
         XCTAssertTrue(s1.requiresKMZ)

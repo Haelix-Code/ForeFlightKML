@@ -24,7 +24,7 @@ public struct PointStyle: KMLStyle {
     public func id() -> String {
         return styleId
     }
-    
+
     public var requiresKMZ: Bool {
         icon.requiresKMZ
     }

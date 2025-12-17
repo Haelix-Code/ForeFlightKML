@@ -58,7 +58,7 @@ final class KMZPackagingTests: XCTestCase {
         try kmzData.write(to: url)
         return try Archive(url: url, accessMode: .read)
     }
-    
+
     func test_builderAddLabel() {
         let builder = ForeFlightKMLBuilder()
 
@@ -76,5 +76,3 @@ final class KMZPackagingTests: XCTestCase {
         }
     }
 }
-
-

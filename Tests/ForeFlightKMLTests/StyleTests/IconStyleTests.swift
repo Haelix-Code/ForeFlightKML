@@ -52,7 +52,7 @@ final class IconStyleTests: XCTestCase {
         let kml2 = icon2.kmlString()
         XCTAssertTrue(kml2.contains("<scale>0.5</scale>"))
     }
-    
+
     func test_iconStyle_transparentLocalPng_requiresKMZ_true() {
         let icon = IconStyle.transparentLocalPng(tint: .white, scale: 1.0)
         XCTAssertTrue(icon.requiresKMZ)

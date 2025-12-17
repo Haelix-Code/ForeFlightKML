@@ -60,7 +60,7 @@ public struct IconStyle: KMLSubStyle {
     func iconHref() -> String {
         return iconHrefValue
     }
-    
+
     /// True if this icon references a local resource and therefore
     /// requires KMZ packaging to render correctly in ForeFlight.
     var requiresKMZ: Bool {

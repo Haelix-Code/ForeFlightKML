@@ -46,7 +46,7 @@ internal class StyleManager {
             markAsReferenced(styleId)
         }
     }
-    
+
     /// True if any referenced style requires KMZ packaging.
     var requiresKMZ: Bool {
         referencedStyleIds.contains { id in

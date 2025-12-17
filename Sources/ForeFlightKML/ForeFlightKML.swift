@@ -46,7 +46,7 @@ public final class ForeFlightKMLBuilder {
         }
         return self
     }
-    
+
     /// True if this document must be exported as KMZ to render correctly.
     var requiresKMZ: Bool {
         styleManager.requiresKMZ
