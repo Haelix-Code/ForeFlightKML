@@ -41,7 +41,6 @@ final class ExampleKMLRecreationTests: XCTestCase {
 
         let kml = builder.kmlString()
         XCTAssertTrue(kml.contains("<name>bpin</name>"))
-        print(kml)
         XCTAssertTrue(kml.contains("blue-pushpin.png"))
     }
 

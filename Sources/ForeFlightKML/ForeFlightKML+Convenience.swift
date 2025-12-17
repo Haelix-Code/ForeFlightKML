@@ -291,4 +291,29 @@ extension ForeFlightKMLBuilder {
         let placemark = Placemark(name: name, geometry: segment, style: style)
         return addPlacemark(placemark)
     }
+
+    /// Add a text-only label placemark at a coordinate.
+    /// This uses a transparent 1×1 icon to enable ForeFlight’s “badge” rendering, with the badge color driven by `IconStyle.color`.
+    /// - Important: Because this relies on a local icon asset, the output **must be exported as KMZ** (not plain KML) for the label to render correctly.
+    /// - Parameters:
+    ///   - text: Label text displayed in ForeFlight
+    ///   - coordinate: Geographic coordinate
+    ///   - altitude: Altitude in meters (optional)
+    ///   - color: Badge/background color for the label (default: white)
+    /// - Returns: Self for method chaining
+    @discardableResult
+    public func addLabel(
+        _ text: String,
+        coordinate: Coordinate,
+        altitude: Double? = nil,
+        color: KMLColor = .white
+    ) -> Self {
+        addPoint(
+            name: text,
+            coordinate: coordinate,
+            altitude: altitude,
+            style: .labelBadge(color: color)
+        )
+    }
+
 }

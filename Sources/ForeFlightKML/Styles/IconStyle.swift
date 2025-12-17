@@ -61,6 +61,15 @@ public struct IconStyle: KMLSubStyle {
         return iconHrefValue
     }
 
+    /// True if this icon references a local resource and therefore
+    /// requires KMZ packaging to render correctly in ForeFlight.
+    var requiresKMZ: Bool {
+        // Local icon references (e.g. "1x1.png") must be packaged in a KMZ.
+        // Remote URLs (http/https) are fine in plain KML.
+        !iconHrefValue.hasPrefix("http://") &&
+        !iconHrefValue.hasPrefix("https://")
+    }
+
     public func kmlString() -> String {
         var lines: [String] = []
         lines.append("<IconStyle>")
@@ -126,4 +135,10 @@ public enum DefinedIconColor: String {
     case lightblue = "ltblu"
     case pink = "pink"
     case red = "red"
+}
+
+public extension IconStyle {
+    static func transparentLocalPng(tint color: KMLColor = .white, scale: Double? = 1.0) -> IconStyle {
+        IconStyle(href: "1x1.png", color: color, scale: scale)
+    }
 }
