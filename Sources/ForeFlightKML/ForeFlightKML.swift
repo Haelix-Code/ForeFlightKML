@@ -48,7 +48,7 @@ public final class ForeFlightKMLBuilder {
     }
 
     /// True if this document must be exported as KMZ to render correctly.
-    var requiresKMZ: Bool {
+    public var requiresKMZ: Bool {
         styleManager.requiresKMZ
     }
 
@@ -57,7 +57,11 @@ public final class ForeFlightKMLBuilder {
     /// Generate the complete KML string for this document.
     /// This method can be called multiple times - it doesn't modify the builder state.
     /// - Returns: A complete KML document as a UTF-8 string ready for export to ForeFlight
-    public func build() -> String {
+    public func build() throws -> String {
+        guard !requiresKMZ else {
+            throw KMZExportError.kmzRequired
+        }
+
         return kmlString()
     }
 
