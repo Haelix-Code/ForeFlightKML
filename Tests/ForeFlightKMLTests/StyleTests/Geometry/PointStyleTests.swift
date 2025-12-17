@@ -68,9 +68,9 @@ final class PointStylesTests: XCTestCase {
         XCTAssertTrue(kml.contains("<href>1x1.png</href>"))
         XCTAssertTrue(kml.contains("<IconStyle>"))
         XCTAssertTrue(kml.contains("<color>"), "Label badge must emit IconStyle color (drives ForeFlight badge)")
-        
+
         do {
-            let _ = try builder.buildKMZ()
+            _ = try builder.buildKMZ()
         } catch {
             XCTFail("buildKMZ() threw: \(error)")
             return
