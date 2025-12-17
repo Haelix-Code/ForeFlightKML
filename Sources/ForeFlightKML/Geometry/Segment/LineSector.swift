@@ -2,13 +2,13 @@ import GeodesySpherical
 
 /// An arc or sector geometry (like a pie slice) defined by center, radius, and angular extents.
 ///
-/// The segment starts from the center, extends to the radius at the start angle,
+/// The sector starts from the center, extends to the radius at the start angle,
 /// follows the arc to the end angle, then returns to center, creating a closed shape.
 ///
 /// Angles are measured in degrees clockwise from North (0°).
 ///
-public struct LineSegment: KMLElement, LineLike {
-    /// The coordinates that define this arc segment
+public struct LineSector: KMLElement, LineLike {
+    /// The coordinates that define this arc sector
     public var coordinates: [Coordinate]
     /// Optional altitude in meters applied to all coordinates
     public var altitude: Double?
@@ -17,7 +17,7 @@ public struct LineSegment: KMLElement, LineLike {
     /// Whether to tessellate (follow ground contours) when rendering
     public var tessellate: Bool?
 
-    /// Create a new arc segment geometry.
+    /// Create a new arc sector geometry.
     /// - Parameters:
     ///   - center: The center point of the arc
     ///   - radius: Radius in meters (must be positive)
@@ -39,7 +39,7 @@ public struct LineSegment: KMLElement, LineLike {
         self.altitude = altitude
         self.tessellate = tessellate
         self.altitudeMode = altitudeMode
-        self.coordinates = SegmentGeometry.generateSegmentPoints(
+        self.coordinates = SectorGeometry.generateSectorPoints(
             center: center, radius: radius, startAngle: startAngle, endAngle: endAngle,
             numberOfPoints: numberOfPoints)
     }
