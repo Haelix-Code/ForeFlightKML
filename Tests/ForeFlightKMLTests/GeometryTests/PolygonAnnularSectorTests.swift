@@ -3,7 +3,7 @@ import XCTest
 
 @testable import ForeFlightKML
 
-final class PolygonAnnularSegmentTests: XCTestCase {
+final class PolygonAnnularSectorTests: XCTestCase {
 
     struct Quadrant {
         let name: String
@@ -12,11 +12,11 @@ final class PolygonAnnularSegmentTests: XCTestCase {
         let color: KMLColor
     }
 
-    func testBasicAnnularSegment() throws {
+    func testBasicAnnularSector() throws {
         let builder = ForeFlightKMLBuilder(documentName: "Annular Test")
         let center = Coordinate(latitude: 38.8700980, longitude: -77.055967)
 
-        let segment = PolygonAnnularSegment(
+        let sector = PolygonAnnularSector(
             center: center,
             innerRadius: 1000,  // 1km inner radius
             outerRadius: 2000,  // 2km outer radius
@@ -24,7 +24,7 @@ final class PolygonAnnularSegmentTests: XCTestCase {
             endAngle: 90        // East
         )
 
-        let placemark = Placemark(name: "Northeast Quadrant", geometry: segment)
+        let placemark = Placemark(name: "Northeast Quadrant", geometry: sector)
         builder.addPlacemark(placemark)
         let kml = builder.kmlString()
 
@@ -34,7 +34,7 @@ final class PolygonAnnularSegmentTests: XCTestCase {
         XCTAssertTrue(kml.contains("<outerBoundaryIs>"))
     }
 
-    func testFourQuadrantAnnularSegments() throws {
+    func testFourQuadrantAnnularSectors() throws {
         let builder = ForeFlightKMLBuilder(documentName: "Ring Quadrants")
         let center = Coordinate(latitude: 51.750188, longitude: -1.581566)
 
@@ -49,7 +49,7 @@ final class PolygonAnnularSegmentTests: XCTestCase {
         ]
 
         for quadrant in quadrants {
-            builder.addPolygonAnnularSegment(
+            builder.addPolygonAnnularSector(
                 name: quadrant.name,
                 center: center,
                 innerRadius: innerRadius,
@@ -74,11 +74,11 @@ final class PolygonAnnularSegmentTests: XCTestCase {
         XCTAssertEqual(placemarkCount, 4)
     }
 
-    func testAnnularSegmentWithStyle() throws {
+    func testAnnularSectorWithStyle() throws {
         let builder = ForeFlightKMLBuilder(documentName: "Styled Ring")
         let center = Coordinate(latitude: 38.8700980, longitude: -77.055967)
 
-        builder.addPolygonAnnularSegment(
+        builder.addPolygonAnnularSector(
             name: "Warning Sector",
             center: center,
             innerRadius: 1500,
@@ -99,12 +99,12 @@ final class PolygonAnnularSegmentTests: XCTestCase {
         XCTAssertTrue(kml.contains("<PolyStyle>"))
     }
 
-    func testAnnularSegmentCrossingNorth() throws {
-        // Test a segment that crosses 0° (wraps around North)
+    func testAnnularSectorCrossingNorth() throws {
+        // Test a sector that crosses 0° (wraps around North)
         let builder = ForeFlightKMLBuilder(documentName: "Crossing North")
         let center = Coordinate(latitude: 38.8700980, longitude: -77.055967)
 
-        let segment = PolygonAnnularSegment(
+        let sector = PolygonAnnularSector(
             center: center,
             innerRadius: 1000,
             outerRadius: 2000,
@@ -112,19 +112,19 @@ final class PolygonAnnularSegmentTests: XCTestCase {
             endAngle: 30      // 30° after North
         )
 
-        builder.addPlacemark(Placemark(name: "North Crossing", geometry: segment))
+        builder.addPlacemark(Placemark(name: "North Crossing", geometry: sector))
         let kml = builder.kmlString()
 
         XCTAssertTrue(kml.contains("North Crossing"))
         XCTAssertTrue(kml.contains("<Polygon>"))
     }
 
-    func testNarrowAnnularSegment() throws {
-        // Test a thin ring segment (5° arc)
-        let builder = ForeFlightKMLBuilder(documentName: "Narrow Segment")
+    func testNarrowAnnularSector() throws {
+        // Test a thin ring sector (5° arc)
+        let builder = ForeFlightKMLBuilder(documentName: "Narrow Sector")
         let center = Coordinate(latitude: 38.8700980, longitude: -77.055967)
 
-        let segment = PolygonAnnularSegment(
+        let sector = PolygonAnnularSector(
             center: center,
             innerRadius: 1000,
             outerRadius: 2000,
@@ -133,14 +133,14 @@ final class PolygonAnnularSegmentTests: XCTestCase {
             numberOfPoints: 16
         )
 
-        builder.addPlacemark(Placemark(name: "Narrow", geometry: segment))
+        builder.addPlacemark(Placemark(name: "Narrow", geometry: sector))
         let kml = builder.kmlString()
 
         XCTAssertTrue(kml.contains("Narrow"))
     }
 
     func testGenerateCompleteDemoKML() throws {
-        let builder = ForeFlightKMLBuilder(documentName: "Annular Segments Demo")
+        let builder = ForeFlightKMLBuilder(documentName: "Annular Sector Demo")
         let center = Coordinate(latitude: 38.8700980, longitude: -77.055967)
 
         let innerRadius: Double = 1000
@@ -154,7 +154,7 @@ final class PolygonAnnularSegmentTests: XCTestCase {
         ]
 
         for quadrant in quadrants {
-            builder.addPolygonAnnularSegment(
+            builder.addPolygonAnnularSector(
                 name: quadrant.name,
                 center: center,
                 innerRadius: innerRadius,

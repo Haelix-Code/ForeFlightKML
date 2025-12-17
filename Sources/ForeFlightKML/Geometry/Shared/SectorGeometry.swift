@@ -1,13 +1,13 @@
 import Foundation
 import GeodesySpherical
 
-internal enum SegmentGeometry {
-    static func generateSegmentPoints(
+internal enum SectorGeometry {
+    static func generateSectorPoints(
         center: Coordinate, radius: Double, startAngle: Double, endAngle: Double,
         numberOfPoints: Int
     ) -> [Coordinate] {
-        var segmentPoints: [Coordinate] = []
-        segmentPoints.append(center)
+        var sectorPoints: [Coordinate] = []
+        sectorPoints.append(center)
 
         let start = startAngle.truncatingRemainder(dividingBy: 360)
         let end = endAngle.truncatingRemainder(dividingBy: 360)
@@ -25,15 +25,15 @@ internal enum SegmentGeometry {
 
             let endPoint = center.destination(with: radius, bearing: currentAngle)
 
-            segmentPoints.append(endPoint)
+            sectorPoints.append(endPoint)
         }
 
-        segmentPoints.append(center)
-        return segmentPoints
+        sectorPoints.append(center)
+        return sectorPoints
     }
 
     // swiftlint:disable:next function_parameter_count
-    static func generateAnnularSegmentPoints(
+    static func generateAnnularSectorPoints(
         center: Coordinate,
         innerRadius: Double,
         outerRadius: Double,

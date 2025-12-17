@@ -27,11 +27,11 @@ final class LabelOnlyTests: XCTestCase {
         XCTAssertTrue(kml.contains("</Style>"))
     }
 
-    func test_builderAddLabel_emitsPlacemarkNameAndHiddenIconScale() throws {
+    func test_builderAddLabel_emitsPlacemarkName() throws {
         let builder = ForeFlightKMLBuilder()
 
         builder.addLabel("Label Warning", coordinate: .init(latitude: 51.2345, longitude: -1.2345), color: .warning)
-        let kml = try builder.build()
+        let kml = builder.kmlString()
 
         XCTAssertTrue(kml.contains("<Placemark>"))
         XCTAssertTrue(kml.contains("<Style id=\"ps-"), "PointStyle should generate ps- style id by default")
