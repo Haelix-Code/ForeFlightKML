@@ -97,7 +97,7 @@ extension ForeFlightKMLBuilder {
         return addPlacemark(placemark)
     }
 
-    /// Add an arc segment line geometry.
+    /// Add an arc sector line geometry.
     /// - Parameters:
     ///   - name: Display name in ForeFlight (optional)
     ///   - center: Center point of the arc
@@ -110,7 +110,7 @@ extension ForeFlightKMLBuilder {
     ///   - style: Path style defining line appearance (optional)
     /// - Returns: Self for method chaining
     @discardableResult
-    public func addLineSegment(
+    public func addLineSector(
         name: String? = nil,
         center: Coordinate,
         radiusMeters: Double,
@@ -124,7 +124,7 @@ extension ForeFlightKMLBuilder {
         precondition(radiusMeters > 0, "Radius must be positive")
         precondition(numberOfPoints >= 3, "Need at least 3 segments for an arc")
 
-        let segment = LineSegment(
+        let sector = LineSector(
             center: center,
             radius: radiusMeters,
             startAngle: startAngle,
@@ -134,7 +134,7 @@ extension ForeFlightKMLBuilder {
             tessellate: tessellate
         )
 
-        let placemark = Placemark(name: name, geometry: segment, style: style)
+        let placemark = Placemark(name: name, geometry: sector, style: style)
         return addPlacemark(placemark)
     }
 
@@ -205,7 +205,7 @@ extension ForeFlightKMLBuilder {
         return addPlacemark(placemark)
     }
 
-    /// Add a filled segment polygon (pie slice).
+    /// Add a filled sector polygon (pie slice).
     /// - Parameters:
     ///   - name: Display name in ForeFlight (optional)
     ///   - center: Center point of the arc
@@ -218,7 +218,7 @@ extension ForeFlightKMLBuilder {
     ///   - style: Polygon style defining outline and optional fill (optional)
     /// - Returns: Self for method chaining
     @discardableResult
-    public func addPolygonSegment(
+    public func addPolygonSector(
         name: String? = nil,
         center: Coordinate,
         radiusMeters: Double,
@@ -232,7 +232,7 @@ extension ForeFlightKMLBuilder {
         precondition(radiusMeters > 0, "Radius must be positive")
         precondition(numberOfPoints >= 3, "Need at least 3 segments for a segment")
 
-        let segment = PolygonSegment(
+        let sector = PolygonSector(
             center: center,
             radius: radiusMeters,
             startAngle: startAngle,
@@ -242,15 +242,15 @@ extension ForeFlightKMLBuilder {
             tessellate: tessellate
         )
 
-        let placemark = Placemark(name: name, geometry: segment, style: style)
+        let placemark = Placemark(name: name, geometry: sector, style: style)
         return addPlacemark(placemark)
     }
 
-    /// Add a filled annular (ring) segment polygon.
-    /// This creates a segment between two radii, excluding the inner circle area.
+    /// Add a filled annular (ring) sector polygon.
+    /// This creates a sector between two radii, excluding the inner circle area.
     /// - Parameters:
     ///   - name: Display name in ForeFlight (optional)
-    ///   - center: Center point of the segment
+    ///   - center: Center point of the sector
     ///   - innerRadius: Inner radius in meters (the "hole" size)
     ///   - outerRadius: Outer radius in meters
     ///   - startAngle: Starting angle in degrees (0° = North, clockwise)
@@ -261,7 +261,7 @@ extension ForeFlightKMLBuilder {
     ///   - style: Polygon style defining outline and optional fill (optional)
     /// - Returns: Self for method chaining
     @discardableResult
-    public func addPolygonAnnularSegment(
+    public func addPolygonAnnularSector(
         name: String? = nil,
         center: Coordinate,
         innerRadius: Double,
@@ -277,7 +277,7 @@ extension ForeFlightKMLBuilder {
         precondition(outerRadius > innerRadius, "Outer radius must be greater than inner radius")
         precondition(numberOfPoints >= 3, "Need at least 3 segments for an annular segment")
 
-        let segment = PolygonAnnularSegment(
+        let sector = PolygonAnnularSector(
             center: center,
             innerRadius: innerRadius,
             outerRadius: outerRadius,
@@ -288,7 +288,7 @@ extension ForeFlightKMLBuilder {
             tessellate: tessellate
         )
 
-        let placemark = Placemark(name: name, geometry: segment, style: style)
+        let placemark = Placemark(name: name, geometry: sector, style: style)
         return addPlacemark(placemark)
     }
 

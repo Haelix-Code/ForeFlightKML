@@ -4,7 +4,7 @@ import Foundation
 ///
 /// Path styles define how lines are drawn. They apply to:
 /// - Line and LineString geometries
-/// - LineCircle and LineSegment geometries
+/// - LineCircle and LineSector geometries
 ///
 public struct PathStyle: KMLStyle {
     public let stroke: LineStyle

@@ -7,7 +7,7 @@ This package provides a small, focused API for composing KML documents suitable 
 
 ## Quick highlights
 
-- Compose `Placemark`s with `Point`, `LineString`, `Polygon` and derived geometry helpers (circles, arc segments, etc.).
+- Compose `Placemark`s with `Point`, `LineString`, `Polygon` and derived geometry helpers (circles, arc sectors, etc.).
 - Create reusable styles (`Style`, `LineStyle`, `PolyStyle`, `IconStyle`, `LabelStyle`) and assign them to placemarks.
 - `ForeFlightKMLBuilder` collects placemarks and styles, emits a complete `kml` document string.
 - Lightweight — no UI code.
@@ -66,11 +66,11 @@ presentShareSheet(with: url)
  - `addPoint` Add a point with style.
  - `addLine` Add a line connecting multiple coordinates.
  - `addLineCircle` Add a circular line (approximated by line segments).
- - `addLineSegment` Add an arc segment line geometry.
+ - `addLineSector` Add an arc sector line geometry.
  - `addPolygon` Add a polygon with outer boundary and optional holes.
  - `addPolygonCircle` Add a polygon with outer boundary and optional holes.
- - `addPolygonSegment` Add a filled segment polygon (pie slice).
- - `addPolygonAnnularSegment` Add a filled annular (ring) segment polygon.
+ - `addPolygonSector` Add a filled sector polygon (pie slice).
+ - `addPolygonAnnularSector` Add a filled annular (ring) sector polygon.
  - `addLabel` Add a text-only label placemark at a coordinate.
 
 ### ForeflightKMLBuilder Export formats
@@ -81,7 +81,7 @@ presentShareSheet(with: url)
 
 ### Underlying elements
 - `Placemark` — a Feature containing a geometry (must implement `KMLElement`). Optionally attach a `KMLStyle`.
-- Geometry types: `Point`, `Line`, `LineCircle`, `LineSegment` (segment of a Circle), `Polygon`, `PolygonCircle` (filled circle), `PolygonSegment` (filled segment) `LinearRing`.
+- Geometry types: `Point`, `Line`, `LineCircle`, `LineSector` (sector of a Circle), `Polygon`, `PolygonCircle` (filled circle), `PolygonSector` (filled sector) `LinearRing`.
 - `Style` and substyles: `LineStyle`, `PolyStyle`, `IconStyle`, `LabelStyle`.
 - `KMLColor` — helper to create the aabbggrr color values used by KML.
 
