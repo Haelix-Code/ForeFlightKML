@@ -12,9 +12,7 @@ This package provides a small, focused API for composing KML documents suitable 
 - `ForeFlightKMLBuilder` collects placemarks and styles, emits a complete `kml` document string.
 - Lightweight — no UI code.
 
-
 ## Install
-
 1. In Xcode: **File › Add Packages...**
 2. Enter the repository URL.
 3. Choose the `ForeFlightKML` package product and add it to your app target.
@@ -54,19 +52,38 @@ presentShareSheet(with: url)
 
 > **Note**: ForeFlight supports importing KML/KMZ files via the iOS share sheet. See ForeFlight's docs for exact import behavior.
 
-## API quick reference
 
-- `ForeFlightKMLBuilder` — builder for the KML document. Methods: `addPlacemark(_:)`, `kmlString()`.
-- `Placemark` — a Feature containing a geometry (must implement `KMLElement`). Optionally attach a `KMLStyle`.
-- Geometry types: `Point`, `Line`, `LineCircle`, `LineSegment` (segment of a Circle), `Polygon`, `PolygonCircle` (filled circle), `PolygonSegment` (filled segment) `LinearRing`.
-- `Style` and substyles: `LineStyle`, `PolyStyle`, `IconStyle`, `LabelStyle`.
-- `KMLColor` — helper to create the aabbggrr color values used by KML.
 
-### Export formats
+## API Reference
+
+### KMLBuidler
+ `ForeFlightKMLBuilder` is the builder for the KML/KMZ document. 
+ - Document name can be set on `init` or with `setDocumentName()` 
+ - Elements can be manually added using `addPlacemark(_:)`
+ - The complete KML string is accessed by `builder.build()`
+
+### KMLBuilder Convenience Elements
+ - `addPoint` Add a point with style.
+ - `addLine` Add a line connecting multiple coordinates.
+ - `addLineCircle` Add a circular line (approximated by line segments).
+ - `addLineSegment` Add an arc segment line geometry.
+ - `addPolygon` Add a polygon with outer boundary and optional holes.
+ - `addPolygonCircle` Add a polygon with outer boundary and optional holes.
+ - `addPolygonSegment` Add a filled segment polygon (pie slice).
+ - `addPolygonAnnularSegment` Add a filled annular (ring) segment polygon.
+ - `addLabel` Add a text-only label placemark at a coordinate.
+
+### ForeflightKMLBuilder Export formats
 - `kml String` via `builder.build()`
 - `kml Data` via `builder.kmlData()`
 - `kmz Data` via `builder.buildKMZ()` 
 - KMZ (zipped KML) is required when using custom icons or using labelBadge (which uses a transparent .png under the hood). 
+
+### Underlying elements
+- `Placemark` — a Feature containing a geometry (must implement `KMLElement`). Optionally attach a `KMLStyle`.
+- Geometry types: `Point`, `Line`, `LineCircle`, `LineSegment` (segment of a Circle), `Polygon`, `PolygonCircle` (filled circle), `PolygonSegment` (filled segment) `LinearRing`.
+- `Style` and substyles: `LineStyle`, `PolyStyle`, `IconStyle`, `LabelStyle`.
+- `KMLColor` — helper to create the aabbggrr color values used by KML.
 
 Full public API surface is visible in the package sources.
 
