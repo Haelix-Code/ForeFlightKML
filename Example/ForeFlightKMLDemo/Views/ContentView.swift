@@ -48,7 +48,6 @@ struct ContentView: View {
 
     private func handleMapTap(_ coord: CLLocationCoordinate2D) {
         lastTapCoordinate = coord
-        
         do {
             let kmz = try KMLGenerator.generateCircleKML(center: coord, radiusMeters: defaultRadiusMeters)
 

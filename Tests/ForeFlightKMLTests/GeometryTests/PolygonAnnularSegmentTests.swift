@@ -170,7 +170,7 @@ final class PolygonAnnularSegmentTests: XCTestCase {
             )
         }
 
-        let kml = try builder.build()
+        let kml = builder.kmlString()
 
         XCTAssertTrue(kml.contains("<Document>"))
         let placemarkCount = kml.components(separatedBy: "<Placemark>").count - 1

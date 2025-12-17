@@ -24,6 +24,7 @@ enum KMLGenerator {
             style: PolygonStyle(outlineColor: .black, fillColor: .warning.withAlpha(0.3)))
 
         return try builder.buildKMZ()
+
     }
 
     static func polygonCoordinatesForMap(center: CLLocationCoordinate2D, radiusMeters: Double) -> [CLLocationCoordinate2D] {
