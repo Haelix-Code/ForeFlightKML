@@ -341,7 +341,7 @@ final class UserMapShapesRecreationTests: XCTestCase {
             )
         )
 
-        let kml = builder.build()
+        let kml = try builder.build()
         let tempDir = FileManager.default.temporaryDirectory
         let fileURL = tempDir.appendingPathComponent("FFIconTest_Generated.kml")
 

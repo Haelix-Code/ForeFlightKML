@@ -60,15 +60,22 @@ final class PointStylesTests: XCTestCase {
         XCTAssertTrue(s.requiresKMZ)
     }
 
-    func test_addLabel_emitsTransparentHref_andIconColor() {
+    func test_addLabel_emitsTransparentHref_andIconColor() throws {
         let builder = ForeFlightKMLBuilder(documentName: "Test")
         builder.addLabel("Badge", coordinate: Coordinate(latitude: 51.0, longitude: -1.0), color: .warning)
-
-        let kml = builder.build()
+        let kml = builder.kmlString()
 
         XCTAssertTrue(kml.contains("<href>1x1.png</href>"))
         XCTAssertTrue(kml.contains("<IconStyle>"))
         XCTAssertTrue(kml.contains("<color>"), "Label badge must emit IconStyle color (drives ForeFlight badge)")
+        
+        do {
+            let _ = try builder.buildKMZ()
+        } catch {
+            XCTFail("buildKMZ() threw: \(error)")
+            return
+        }
+
     }
 
     func test_labelBadge_doesNotEmitLabelStyle() {
