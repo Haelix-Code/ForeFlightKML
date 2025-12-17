@@ -12,6 +12,12 @@ public protocol KMLStyle {
     // Top-level style that must provide an id and full KML (usually a <Style id="..."> ... </Style>)
     func id() -> String
     func kmlString() -> String
+    // Whether this style requires KMZ packaging (e.g. local icon assets).
+    var requiresKMZ: Bool { get }
+}
+
+public extension KMLStyle {
+    var requiresKMZ: Bool { false }
 }
 
 /// Represents a style *sub-element* like `<LineStyle>` or `<PolyStyle>`.

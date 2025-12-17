@@ -291,4 +291,35 @@ extension ForeFlightKMLBuilder {
         let placemark = Placemark(name: name, geometry: segment, style: style)
         return addPlacemark(placemark)
     }
+    
+    @discardableResult
+    public func addLabel(
+        _ text: String,
+        coordinate: Coordinate,
+        altitude: Double? = nil,
+        color: KMLColor = .white
+    ) -> Self {
+        addPoint(
+            name: text,
+            coordinate: coordinate,
+            altitude: altitude,
+            style: .labelBadge(color: color)
+        )
+    }
+
+    @discardableResult
+    public func addLabel(
+        _ text: String,
+        latitude: Double,
+        longitude: Double,
+        altitude: Double? = nil,
+        color: KMLColor = .white
+    ) -> Self {
+        addLabel(
+            text,
+            coordinate: Coordinate(latitude: latitude, longitude: longitude),
+            altitude: altitude,
+            color: color
+        )
+    }
 }

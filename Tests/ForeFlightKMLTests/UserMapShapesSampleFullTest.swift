@@ -267,7 +267,7 @@ final class UserMapShapesRecreationTests: XCTestCase {
             altitude: 0,
             style: PointStyle(
                 icon: .custom(type: .square, color: .fromHex("FFB001"), scale: 1.2),
-                label: LabelStyle(color: .fromHex("FEA109"))
+                label: LabelStyle(color: .fromHex("FFB001"))
             )
         )
 
@@ -277,7 +277,7 @@ final class UserMapShapesRecreationTests: XCTestCase {
             altitude: 0,
             style: PointStyle(
                 icon: .custom(type: .triangle, color: .fromHex("BFF394"), scale: 1.2),
-                label: LabelStyle(color: .fromHex("FEA109"))
+                label: LabelStyle(color: .fromHex("BFF394"))
             )
         )
 

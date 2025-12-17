@@ -52,4 +52,19 @@ final class IconStyleTests: XCTestCase {
         let kml2 = icon2.kmlString()
         XCTAssertTrue(kml2.contains("<scale>0.5</scale>"))
     }
+    
+    func test_iconStyle_transparentLocalPng_requiresKMZ_true() {
+        let icon = IconStyle.transparentLocalPng(tint: .white, scale: 1.0)
+        XCTAssertTrue(icon.requiresKMZ)
+    }
+
+    func test_iconStyle_customGoogleShape_requiresKMZ_false() {
+        let icon = IconStyle.custom(type: .square, color: .white, scale: 1.0)
+        XCTAssertFalse(icon.requiresKMZ)
+    }
+
+    func test_iconStyle_predefinedGooglePaddle_requiresKMZ_false() {
+        let icon = IconStyle.predefined(type: .circle, color: .red, scale: 1.0)
+        XCTAssertFalse(icon.requiresKMZ)
+    }
 }

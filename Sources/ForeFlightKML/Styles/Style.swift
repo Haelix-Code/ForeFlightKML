@@ -19,6 +19,12 @@ internal struct Style: KMLStyle {
     public func id() -> String {
         return styleId
     }
+    
+    var requiresKMZ: Bool {
+        subStyles.contains {
+            ($0 as? IconStyle)?.requiresKMZ == true
+        }
+    }
 
     /// Create a new complete style.
     /// - Parameters:

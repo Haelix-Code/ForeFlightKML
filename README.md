@@ -81,6 +81,18 @@ Full public API surface is visible in the package sources; the README examples s
 - **Angles/bearings**: bearings (for arc & circle generation) are interpreted in degrees (0..360). The bearing convention is clockwise from north.
 - **Altitude**: When you provide altitudes, the `AltitudeMode` is emitted (defaults to `.absolute` in most geometries).
 - **Styles**: `Style` generates a stable `id` when provided; otherwise a UUID-based id is generated. `ForeFlightKMLBuilder` will automatically register styles added via `Placemark`.
+
+### ForeFlight point label color (important)
+
+For Point placemarks:
+- LabelStyle.color is ignored
+- Label badge color is driven by IconStyle.color
+
+To create a label-only point with a colored badge:
+```
+    builder.addLabel("Text", coordinate: .init(...), color: KMLColor)
+```
+
 ---
 
 ## Demo & tests

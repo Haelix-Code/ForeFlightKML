@@ -24,6 +24,10 @@ public struct PointStyle: KMLStyle {
     public func id() -> String {
         return styleId
     }
+    
+    public var requiresKMZ: Bool {
+        icon.requiresKMZ
+    }
 
     public func kmlString() -> String {
         var components: [String] = []
@@ -34,5 +38,16 @@ public struct PointStyle: KMLStyle {
         }
         components.append("</Style>")
         return components.joined(separator: "\n")
+    }
+}
+
+public extension PointStyle {
+    /// A point style that renders only the placemark name as a label.
+    static func labelBadge(color: KMLColor = .white, id: String? = nil) -> PointStyle {
+            PointStyle(
+                icon: .transparentLocalPng(tint: color),
+                label: nil, // ForeFlight ignores LabelStyle for point badges
+                id: id
+            )
     }
 }
