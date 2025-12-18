@@ -2,14 +2,14 @@
 
 > Swift framework to build KML files in Jeppesen ForeFlight friendly format. 
 
-This package provides a small, focused API for composing KML documents suitable for importing into ForeFlight as **User Map Shapes (KML)**. It intentionally avoids UI concerns — it gives you `String` KML output (or bytes) which your app can write to disk and share using the standard iOS share sheet.
+This package provides a small, focused API for composing KML/KMZ documents suitable for importing into ForeFlight as **User Map Shapes (KML)**. It intentionally avoids UI concerns — it gives you `String` KML output (or bytes) which your app can write to disk and share using the standard iOS share sheet.
     
 
 ## Quick highlights
 
 - Compose `Placemark`s with `Point`, `LineString`, `Polygon` and derived geometry helpers (circles, arc sectors, etc.).
 - Create reusable styles (`Style`, `LineStyle`, `PolyStyle`, `IconStyle`, `LabelStyle`) and assign them to placemarks.
-- `ForeFlightKMLBuilder` collects placemarks and styles, emits a complete `kml` document string.
+- `ForeFlightKMLBuilder` collects placemarks and styles, emits a complete `kml` or `kmz` document .
 - Lightweight — no UI code.
 
 ## Install
@@ -40,7 +40,7 @@ builder.addLine(
 
 builder.addLineCircle(
     name: "Airport ATZ", 
-    center: airportCenter, 
+    center: Coordinate(latitude:, longitude:), 
     radiusMeters: 4630,
     PolygonStyle(outlineColor: .black, fillColor: .warning.withAlpha(0.3))
 )
@@ -53,14 +53,13 @@ presentShareSheet(with: url)
 > **Note**: ForeFlight supports importing KML/KMZ files via the iOS share sheet. See ForeFlight's docs for exact import behavior.
 
 
-
 ## API Reference
 
 ### KMLBuidler
  `ForeFlightKMLBuilder` is the builder for the KML/KMZ document. 
  - Document name can be set on `init` or with `setDocumentName()` 
  - Elements can be manually added using `addPlacemark(_:)`
- - The complete KML string is accessed by `builder.build()`
+ - The output is accessed by: for KML `try builder.build()` or for KMZ: `try builder.buildKMZ()`
 
 ### KMLBuilder Convenience Elements
  - `addPoint` Add a point with style.
@@ -89,17 +88,11 @@ Full public API surface is visible in the package sources.
 
 ## Notes, conventions and gotchas
 
-
 - **Coordinates order**: KML requires `longitude,latitude[,altitude]`. The public API accepts `Coordinate(latitude:..., longitude:...)` (from `Geodesy`) and the framework emits coordinates in the KML `lon,lat[,alt]` order.
 - **Units**: Distances (e.g. `LineCircle.radius`) are in **meters**.
 - **Angles/bearings**: bearings (for arc & circle generation) are interpreted in degrees (0..360). The bearing convention is clockwise from north.
 - **Altitude**: When you provide altitudes, the `AltitudeMode` is emitted (defaults to `.absolute` in most geometries).
 - **Styles**: `Style` generates a stable `id` when provided; otherwise a UUID-based id is generated. `ForeFlightKMLBuilder` will automatically register styles added via `Placemark`.
-
-To create a label-only point with a colored badge:
-```
-    builder.addLabel("Text", coordinate: .init(...), color: KMLColor?)
-```
 
 ## Demo & tests
 
