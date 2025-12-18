@@ -47,6 +47,13 @@ internal class StyleManager {
         }
     }
 
+    /// True if any referenced style requires KMZ packaging.
+    var requiresKMZ: Bool {
+        referencedStyleIds.contains { id in
+            styles[id]?.requiresKMZ == true
+        }
+    }
+
     // MARK: - Style Management
 
     /// Get a style by its ID.

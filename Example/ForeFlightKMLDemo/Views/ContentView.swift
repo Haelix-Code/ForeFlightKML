@@ -48,19 +48,19 @@ struct ContentView: View {
 
     private func handleMapTap(_ coord: CLLocationCoordinate2D) {
         lastTapCoordinate = coord
-
-        let kml = KMLGenerator.generateCircleKML(center: coord, radiusMeters: defaultRadiusMeters)
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
-
-        let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(dateFormatter.string(from: Date())).kml")
         do {
-            try kml.data(using: .utf8)?.write(to: tmpURL)
+            let kmz = try KMLGenerator.generateCircleKML(center: coord, radiusMeters: defaultRadiusMeters)
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
+
+            let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(dateFormatter.string(from: Date())).kmz")
+
+            try kmz?.write(to: tmpURL)
             kmlToShareURL = tmpURL
             showingShare = true
         } catch {
-            print("Failed to write KML: \(error)")
+            print("Failed to write KMZ: \(error)")
             kmlToShareURL = nil
         }
     }

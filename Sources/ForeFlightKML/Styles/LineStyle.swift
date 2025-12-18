@@ -6,7 +6,7 @@
 ///
 /// This style applies to:
 /// - Line and LineString geometries
-/// - LineCircle and LineSegment geometries
+/// - LineCircle and LineSector geometries
 /// - Polygon outline borders
 /// - Any other line-based geometry
 ///

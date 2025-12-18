@@ -20,6 +20,12 @@ internal struct Style: KMLStyle {
         return styleId
     }
 
+    var requiresKMZ: Bool {
+        subStyles.contains {
+            ($0 as? IconStyle)?.requiresKMZ == true
+        }
+    }
+
     /// Create a new complete style.
     /// - Parameters:
     ///   - subStyles: Array of style components to combine

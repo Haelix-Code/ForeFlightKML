@@ -1,5 +1,5 @@
 import XCTest
-
+import GeodesySpherical
 @testable import ForeFlightKML
 
 final class PointStylesTests: XCTestCase {
@@ -45,5 +45,43 @@ final class PointStylesTests: XCTestCase {
         let style2 = PointStyle(icon: .predefined(type: .circle, color: .red))
 
         XCTAssertNotEqual(style1.id(), style2.id())
+    }
+
+    func test_pointStyle_requiresKMZ_followsIconStyle() {
+        let s1 = PointStyle(icon: .transparentLocalPng(tint: .white))
+        XCTAssertTrue(s1.requiresKMZ)
+
+        let s2 = PointStyle(icon: .custom(type: .square, color: .white))
+        XCTAssertFalse(s2.requiresKMZ)
+    }
+
+    func test_labelBadge_requiresKMZ_true() {
+        let s = PointStyle.labelBadge(color: .warning)
+        XCTAssertTrue(s.requiresKMZ)
+    }
+
+    func test_addLabel_emitsTransparentHref_andIconColor() throws {
+        let builder = ForeFlightKMLBuilder(documentName: "Test")
+        builder.addLabel("Badge", coordinate: Coordinate(latitude: 51.0, longitude: -1.0), color: .warning)
+        let kml = builder.kmlString()
+
+        XCTAssertTrue(kml.contains("<href>1x1.png</href>"))
+        XCTAssertTrue(kml.contains("<IconStyle>"))
+        XCTAssertTrue(kml.contains("<color>"), "Label badge must emit IconStyle color (drives ForeFlight badge)")
+
+        do {
+            _ = try builder.buildKMZ()
+        } catch {
+            XCTFail("buildKMZ() threw: \(error)")
+            return
+        }
+
+    }
+
+    func test_labelBadge_doesNotEmitLabelStyle() {
+        let style = PointStyle.labelBadge(color: .warning, id: "fixed")
+        let xml = style.kmlString()
+
+        XCTAssertFalse(xml.contains("<LabelStyle>"), "labelBadge should omit LabelStyle (ForeFlight ignores it)")
     }
 }

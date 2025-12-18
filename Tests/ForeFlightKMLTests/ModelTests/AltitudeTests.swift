@@ -22,9 +22,7 @@ final class AltitudeSupportTests: XCTestCase {
 
     func testPointWithAltitudeNoMode() {
         let point = Point(Coordinate(latitude: 1, longitude: -1), altitude: 0)
-
         let kml = point.kmlString()
-        print(kml)
         XCTAssertTrue(kml.contains("<coordinates>-1.0,1.0,0.0</coordinates>"))
         XCTAssertFalse(kml.contains("<altitudeMode>"))
     }
