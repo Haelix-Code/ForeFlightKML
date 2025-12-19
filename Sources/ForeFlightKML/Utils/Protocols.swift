@@ -26,3 +26,7 @@ public protocol KMLSubStyle {
     // These produce the inner element tags (<LineStyle>...</LineStyle>, <PolyStyle>...</PolyStyle>).
     func kmlString() -> String
 }
+
+protocol KMLBuilding {
+    func build(as format: KMLFormat) throws -> KMLBuildResult
+}

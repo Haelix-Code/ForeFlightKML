@@ -6,7 +6,3 @@ public struct KMLBuildResult {
     public let mimetype: String
 }
 
-protocol KMLBuilding {
-    func build(as format: KMLFormat) throws -> KMLBuildResult
-}
-
