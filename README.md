@@ -46,7 +46,7 @@ builder.addLineCircle(
 )
 
 let url = FileManager.default.temporaryDirectory.appendingPathComponent("shapes.kml")
-try builder.build().write(to: url, atomically: true, encoding: .utf8)
+try builder.build().write(to: url)
 presentShareSheet(with: url)
 ```
 
@@ -59,7 +59,7 @@ presentShareSheet(with: url)
  `ForeFlightKMLBuilder` is the builder for the KML/KMZ document. 
  - Document name can be set on `init` or with `setDocumentName()` 
  - Elements can be manually added using `addPlacemark(_:)`
- - The output is accessed by: for KML `try builder.build()` or for KMZ: `try builder.buildKMZ()`
+ - The output is accessed by `try builder.build()`
 
 ### KMLBuilder Convenience Elements
  - `addPoint` Add a point with style.
@@ -73,9 +73,10 @@ presentShareSheet(with: url)
  - `addLabel` Add a text-only label placemark at a coordinate.
 
 ### ForeflightKMLBuilder Export formats
-- `kml String` via `builder.build()`
-- `kml Data` via `builder.kmlData()`
-- `kmz Data` via `builder.buildKMZ()` 
+- Type `KMLBuildResult` contains: `data: Data`, `fileExtension: String` and `mimetype: String`
+- `kml Data` via `builder.build(as: .kml)`
+- `kmz Data` via `builder.buildKMZ(as: .kmz)`
+- `kml String` via `builder.kmlString()` 
 - KMZ (zipped KML) is required when using custom icons or using labelBadge (which uses a transparent .png under the hood). 
 
 ### Underlying elements

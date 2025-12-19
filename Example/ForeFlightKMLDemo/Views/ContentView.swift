@@ -1,5 +1,6 @@
 import SwiftUI
 import MapKit
+import ForeFlightKML
 
 struct ContentView: View {
     @State private var lastTapCoordinate: CLLocationCoordinate2D?
@@ -49,14 +50,14 @@ struct ContentView: View {
     private func handleMapTap(_ coord: CLLocationCoordinate2D) {
         lastTapCoordinate = coord
         do {
-            let kmz = try KMLGenerator.generateCircleKML(center: coord, radiusMeters: defaultRadiusMeters)
+            let buildResult = try KMLGenerator.generateCircleKML(center: coord, radiusMeters: defaultRadiusMeters)
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
 
-            let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(dateFormatter.string(from: Date())).kmz")
-
-            try kmz?.write(to: tmpURL)
+            let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(dateFormatter.string(from: Date())).\(buildResult.fileExtension)")
+            
+            try buildResult.data.write(to: tmpURL)
             kmlToShareURL = tmpURL
             showingShare = true
         } catch {

@@ -4,7 +4,7 @@ import GeodesySpherical
 /// A Builder for composing a KML Document (styles + placemarks).
 /// Use this to create KML documents compatible with ForeFlight's User Map Shapes feature.
 ///
-public final class ForeFlightKMLBuilder {
+public final class ForeFlightKMLBuilder: KMLBuilding {
     /// Optional name for the `<Document>` element.
     private var documentName: String?
     /// Collection of placemarks added to this builder.
@@ -57,12 +57,30 @@ public final class ForeFlightKMLBuilder {
     /// Generate the complete KML string for this document.
     /// This method can be called multiple times - it doesn't modify the builder state.
     /// - Returns: A complete KML document as a UTF-8 string ready for export to ForeFlight
-    public func build() throws -> String {
-        guard !requiresKMZ else {
-            throw KMZExportError.kmzRequired
+    public func build(as format: KMLFormat = .kmz) throws -> KMLBuildResult {
+        if format == .kml, requiresKMZ {
+            throw BuildError.unsupportedFeatureForKML
         }
 
-        return kmlString()
+        switch format {
+        case .kml:
+            let data = buildKML()
+            return KMLBuildResult(
+                data: data,
+                fileExtension: "kml",
+                mimetype: "application/vnd.google-earth.kml+xml"
+            )
+
+        case .kmz:
+            guard let data = try buildKMZ() else {
+                throw BuildError.emptyArchive
+            }
+            return KMLBuildResult(
+                data: data,
+                fileExtension: "kmz",
+                mimetype: "application/vnd.google-earth.kmz"
+            )
+        }
     }
 
     /// Produce the full KML string for this document.
@@ -91,7 +109,7 @@ public final class ForeFlightKMLBuilder {
     /// Produce the KML document as `Data` using the given text encoding.
     /// - Parameter encoding: The `String.Encoding` to use when converting the KML string into data. 
     /// - Returns: `Data` containing the encoded KML, or an empty `Data` if encoding fails.
-    public func kmlData(encoding: String.Encoding = .utf8) -> Data {
+    public func buildKML(encoding: String.Encoding = .utf8) -> Data {
         return kmlString().data(using: encoding) ?? Data()
     }
 
