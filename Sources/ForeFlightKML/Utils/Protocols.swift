@@ -27,6 +27,6 @@ public protocol KMLSubStyle {
     func kmlString() -> String
 }
 
-protocol KMLBuilding {
-    func build(as format: KMLFormat) throws -> KMLBuildResult
+protocol Building {
+    func build(as format: OutputFormat) throws -> BuildResult
 }

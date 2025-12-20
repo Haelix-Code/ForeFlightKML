@@ -1,6 +1,6 @@
 import Foundation
 
-public struct KMLBuildResult {
+public struct BuildResult {
     public let data: Data
     public let fileExtension: String
     public let mimetype: String

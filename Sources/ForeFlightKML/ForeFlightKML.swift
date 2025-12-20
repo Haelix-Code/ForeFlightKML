@@ -4,7 +4,7 @@ import GeodesySpherical
 /// A Builder for composing a KML Document (styles + placemarks).
 /// Use this to create KML documents compatible with ForeFlight's User Map Shapes feature.
 ///
-public final class ForeFlightKMLBuilder: KMLBuilding {
+public final class ForeFlightKMLBuilder: Building {
     /// Optional name for the `<Document>` element.
     private var documentName: String?
     /// Collection of placemarks added to this builder.
@@ -57,7 +57,7 @@ public final class ForeFlightKMLBuilder: KMLBuilding {
     /// Generate the complete KML string for this document.
     /// This method can be called multiple times - it doesn't modify the builder state.
     /// - Returns: A complete KML document as a UTF-8 string ready for export to ForeFlight
-    public func build(as format: KMLFormat = .kmz) throws -> KMLBuildResult {
+    public func build(as format: OutputFormat = .kmz) throws -> BuildResult {
         if format == .kml, requiresKMZ {
             throw BuildError.unsupportedFeatureForKML
         }
@@ -65,7 +65,7 @@ public final class ForeFlightKMLBuilder: KMLBuilding {
         switch format {
         case .kml:
             let data = buildKML()
-            return KMLBuildResult(
+            return BuildResult(
                 data: data,
                 fileExtension: "kml",
                 mimetype: "application/vnd.google-earth.kml+xml"
@@ -75,7 +75,7 @@ public final class ForeFlightKMLBuilder: KMLBuilding {
             guard let data = try buildKMZ() else {
                 throw BuildError.emptyArchive
             }
-            return KMLBuildResult(
+            return BuildResult(
                 data: data,
                 fileExtension: "kmz",
                 mimetype: "application/vnd.google-earth.kmz"

@@ -1,4 +1,4 @@
-public enum KMLFormat {
+public enum OutputFormat {
     case kml
     case kmz
 }
