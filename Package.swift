@@ -28,6 +28,10 @@ let package = Package(
         .testTarget(
             name: "ForeFlightKMLTests",
             dependencies: ["ForeFlightKML"]
+        ),
+        .testTarget(
+            name: "UserMapShapeTests",
+            dependencies: ["ForeFlightKML"]
         )
     ]
 )

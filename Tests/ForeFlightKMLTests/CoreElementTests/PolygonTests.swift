@@ -97,4 +97,24 @@ final class PolygonTests: XCTestCase {
 
         XCTAssertFalse(kml.contains("<altitudeMode>"))
     }
+    
+    func test_polygon_withInnerRings_producesInnerBoundary() {
+        let builder = ForeFlightKMLBuilder()
+        let outer = [
+            Coordinate(latitude: 0, longitude: 0),
+            Coordinate(latitude: 0, longitude: 1),
+            Coordinate(latitude: 1, longitude: 1)
+        ]
+        let hole = [
+            Coordinate(latitude: 0.2, longitude: 0.2),
+            Coordinate(latitude: 0.2, longitude: 0.8),
+            Coordinate(latitude: 0.8, longitude: 0.8)
+        ]
+
+        builder.addPolygon(name: "poly", outerRing: outer, innerRings: [hole])
+        let kml = builder.kmlString()
+        XCTAssertTrue(kml.contains("<innerBoundaryIs>"))
+        XCTAssertTrue(kml.contains("<outerBoundaryIs>"))
+    }
 }
+
