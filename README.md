@@ -21,7 +21,7 @@ This package provides a small, focused API for composing KML/KMZ documents suita
 ## Example Output 
 Using the example given on the [ForeFlight website](https://foreflight.com/support/user-map-shapes/) the below is generated using this Framework. 
 
-See `/Tests/ForeFlightKMLTests/UserMapShapesSampleFullTest.swift`
+See `/Tests/UserMapShapeTests/UserMapShapesSampleFullTest.swift`
 
 <img width="615" height="770" alt="Image" src="/docs/example-output.png" />
 
@@ -32,6 +32,7 @@ import ForeFlightKML
 import Geodesy (used for coordinates)
 
 let builder = ForeFlightKMLBuilder(documentName: "Airport with ATZ")
+
 builder.addLine(
     name: "Runway 15-33", 
     coordinates: [Coordinate(latitude:, longitude:),Coordinate(latitude:, longitude:)],
@@ -45,8 +46,10 @@ builder.addLineCircle(
     PolygonStyle(outlineColor: .black, fillColor: .warning.withAlpha(0.3))
 )
 
-let url = FileManager.default.temporaryDirectory.appendingPathComponent("shapes.kml")
-try builder.build().write(to: url)
+let buildResult = try builder.build(as: .kmz)
+
+let url = FileManager.default.temporaryDirectory.appendingPathComponent("shapes\(buildResult.fileExtension)")
+try buildResult.data.write(to: tmpURL)
 presentShareSheet(with: url)
 ```
 
@@ -73,10 +76,16 @@ presentShareSheet(with: url)
  - `addLabel` Add a text-only label placemark at a coordinate.
 
 ### ForeflightKMLBuilder Export formats
-- Type `KMLBuildResult` contains: `data: Data`, `fileExtension: String` and `mimetype: String`
+Type `BuildResult` contains: 
+``` 
+    data: Data
+    fileExtension: String
+    mimetype: String
+```
+Specific data access: 
 - `kml Data` via `builder.build(as: .kml)`
-- `kmz Data` via `builder.buildKMZ(as: .kmz)`
-- `kml String` via `builder.kmlString()` 
+- `kmz Data` via `builder.build(as: .kmz)`
+- `kml String` via `builder.kmlString()` note: this can be unsafe and should only be used for debugging
 - KMZ (zipped KML) is required when using custom icons or using labelBadge (which uses a transparent .png under the hood). 
 
 ### Underlying elements
@@ -97,7 +106,7 @@ Full public API surface is visible in the package sources.
 
 ## Demo & tests
 
-The repo contains an `Example` app that demonstrates building shapes and the `Tests` folder with unit tests. 
+The repo contains an `Example` app that demonstrates building shapes and the `Tests` folder with unit and end to end example tests. 
 
 ## Contributing
 

@@ -4,7 +4,7 @@ import CoreLocation
 import ForeFlightKML
 
 enum KMLGenerator {
-    static func generateCircleKML(center: CLLocationCoordinate2D, radiusMeters: Double) throws -> KMLBuildResult {
+    static func generateCircleKML(center: CLLocationCoordinate2D, radiusMeters: Double) throws -> BuildResult {
         let builder = ForeFlightKMLBuilder(documentName: "Foreflight KML Demo")
 
         let centerCoordinate = Coordinate(latitude: center.latitude, longitude: center.longitude)
