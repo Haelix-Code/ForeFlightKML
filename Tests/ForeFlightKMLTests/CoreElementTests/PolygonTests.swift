@@ -97,7 +97,7 @@ final class PolygonTests: XCTestCase {
 
         XCTAssertFalse(kml.contains("<altitudeMode>"))
     }
-    
+
     func test_polygon_withInnerRings_producesInnerBoundary() {
         let builder = ForeFlightKMLBuilder()
         let outer = [
@@ -117,4 +117,3 @@ final class PolygonTests: XCTestCase {
         XCTAssertTrue(kml.contains("<outerBoundaryIs>"))
     }
 }
-
