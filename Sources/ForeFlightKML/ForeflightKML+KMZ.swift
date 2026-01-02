@@ -6,7 +6,7 @@ public extension ForeFlightKMLBuilder {
     /// Build a KMZ (ZIP) containing doc.kml and any required local assets.
     func buildKMZ() throws -> Data? {
 
-        let kmlData = kmlData()
+        let kmlData = buildKML()
 
         let archive = try Archive(accessMode: .create)
 
@@ -38,7 +38,7 @@ private extension ForeFlightKMLBuilder {
         let bundle = Bundle.module
 
         guard let iconURL = bundle.url(forResource: "1x1", withExtension: "png") else {
-            throw KMZExportError.missingLocalResource("1x1.png")
+            throw ExportError.missingLocalResource("1x1.png")
         }
 
         try archive.addEntry(
