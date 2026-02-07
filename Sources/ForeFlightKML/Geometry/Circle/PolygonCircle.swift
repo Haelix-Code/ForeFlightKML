@@ -26,6 +26,10 @@ public struct PolygonCircle: KMLElement, AltitudeSupport {
         self.polygon = Polygon(outer: ring, altitudeMode: altitudeMode, tessellate: tessellate)
     }
 
+    public func write(to buffer: inout String) {
+        polygon.write(to: &buffer)
+    }
+
     public func kmlString() -> String {
         return polygon.kmlString()
     }

@@ -16,8 +16,8 @@ final class LineStringTests: XCTestCase {
         XCTAssertTrue(kml.contains("<LineString>"))
         XCTAssertTrue(kml.contains("<tessellate>1</tessellate>"))
         XCTAssertTrue(kml.contains("<altitudeMode>"))
-        XCTAssertTrue(kml.contains("3.0,2.0,100.0"))
-        XCTAssertTrue(kml.contains("5.0,4.0,100.0"))
+        XCTAssertTrue(kml.contains("3.00000000,2.00000000,100.0"))
+        XCTAssertTrue(kml.contains("5.00000000,4.00000000,100.0"))
     }
 
     func testLineLikeDelegatesToLineString() {
@@ -36,7 +36,7 @@ final class LineStringTests: XCTestCase {
 
         let kml = lineLike.kmlString()
         XCTAssertTrue(kml.contains("<LineString>"))
-        XCTAssertTrue(kml.contains("2.0,1.0,42.0"))
+        XCTAssertTrue(kml.contains("2.00000000,1.00000000,42.0"))
         XCTAssertTrue(kml.contains("<tessellate>1</tessellate>"))
     }
 }

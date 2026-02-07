@@ -43,15 +43,21 @@ public struct Placemark {
         self.init(name: name, geometry: geometry, style: style)
     }
 
+    public func write(to buffer: inout String) {
+        buffer.append("<Placemark>\n")
+        if let name = name {
+            buffer.append("<name>\(escapeForKML(name))</name>\n")
+        }
+        if let su = styleUrl {
+            buffer.append("<styleUrl>#\(su)</styleUrl>\n")
+        }
+        geometry.write(to: &buffer)
+        buffer.append("</Placemark>\n")
+    }
+
     public func kmlString() -> String {
-        var kmlComponents: [String] = []
-
-        kmlComponents.append("<Placemark>")
-        if let name = name { kmlComponents.append("<name>\(escapeForKML(name))</name>") }
-        if let su = styleUrl { kmlComponents.append("<styleUrl>#\(su)</styleUrl>") }
-        kmlComponents.append(geometry.kmlString())
-        kmlComponents.append("</Placemark>")
-
-        return kmlComponents.joined(separator: "\n")
+        var buffer = String()
+        write(to: &buffer)
+        return buffer
     }
 }

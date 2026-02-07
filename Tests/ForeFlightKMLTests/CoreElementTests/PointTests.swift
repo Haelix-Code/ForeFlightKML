@@ -10,7 +10,7 @@ final class PointTests: XCTestCase {
         let kml = point.kmlString()
 
         XCTAssertTrue(kml.contains("<Point>"))
-        XCTAssertTrue(kml.contains("<coordinates>-77.036572,38.898311</coordinates>"))
+        XCTAssertTrue(kml.contains("<coordinates>-77.03657200,38.89831100</coordinates>"))
         XCTAssertFalse(kml.contains("<altitudeMode>"))
     }
 
@@ -31,7 +31,7 @@ final class PointTests: XCTestCase {
         XCTAssertEqual(drawOrder, "1")
 
         let coordinates = try XMLTestHelper.getTextContent(elementName: "coordinates", from: xml)
-        XCTAssertEqual(coordinates, "-77.036572,38.898311")
+        XCTAssertEqual(coordinates, "-77.03657200,38.89831100")
 
         let altitudeModeElements = try XMLTestHelper.extractElements(
             named: "altitudeMode", from: xml)
@@ -45,7 +45,7 @@ final class PointTests: XCTestCase {
         let kml = point.kmlString()
 
         XCTAssertTrue(kml.contains("<Point>"))
-        XCTAssertTrue(kml.contains("<coordinates>-77.036572,38.898311,17.88</coordinates>"))
+        XCTAssertTrue(kml.contains("<coordinates>-77.03657200,38.89831100,17.9</coordinates>"))
         XCTAssertTrue(kml.contains("<altitudeMode>"))
     }
 
@@ -66,6 +66,6 @@ final class PointTests: XCTestCase {
         XCTAssertEqual(altitudeMode, "absolute")
 
         let coordinates = try XMLTestHelper.getTextContent(elementName: "coordinates", from: xml)
-        XCTAssertEqual(coordinates, "-77.036572,38.898311,17.88")
+        XCTAssertEqual(coordinates, "-77.03657200,38.89831100,17.9")
     }
 }

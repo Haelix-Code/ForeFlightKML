@@ -1,3 +1,4 @@
+import Foundation
 import GeodesySpherical
 
 // KML uses 3D geographic coordinates: longitude, latitude and altitude, in that order.
@@ -7,7 +8,16 @@ import GeodesySpherical
 
 extension GeodesySpherical.Coordinate {
     public func kmlString() -> String {
-        return "\(self.longitude),\(self.latitude)"
+        return String(format: "%.8f,%.8f", self.longitude, self.latitude)
+    }
+
+    /// Write coordinate in KML format directly into a buffer, with optional altitude.
+    internal func writeKML(to buffer: inout String, altitude: Double? = nil) {
+        buffer.append(String(format: "%.8f,%.8f", self.longitude, self.latitude))
+        if let alt = altitude {
+            buffer.append(String(format: ",%.1f", alt))
+        }
+        buffer.append("\n")
     }
 }
 
@@ -35,9 +45,9 @@ internal struct Coordinate3D: Hashable {
 
     public func kmlString() -> String {
         if let altitude = self.altitude {
-            return "\(self.longitude),\(self.latitude),\(altitude)"
+            return String(format: "%.8f,%.8f,%.1f", self.longitude, self.latitude, altitude)
         } else {
-            return "\(self.longitude),\(self.latitude)"
+            return String(format: "%.8f,%.8f", self.longitude, self.latitude)
         }
     }
 }

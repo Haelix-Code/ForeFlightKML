@@ -26,7 +26,7 @@ final class CoordinateContainerTests: XCTestCase {
 
         XCTAssertTrue(kml.contains("<TestContainer>"))
         XCTAssertFalse(kml.contains("<tessellate>"))
-        XCTAssertTrue(kml.contains("0.0,0.0"))
+        XCTAssertTrue(kml.contains("0.00000000,0.00000000"))
     }
 
     func testKmlWithTessellateAndAltitude() {
@@ -44,7 +44,7 @@ final class CoordinateContainerTests: XCTestCase {
         XCTAssertTrue(kml.contains("<TestContainer>"))
         XCTAssertTrue(kml.contains("<tessellate>1</tessellate>"))
         XCTAssertTrue(kml.contains("<altitudeMode>absolute</altitudeMode>"))
-        XCTAssertTrue(kml.contains("2.0,1.0,50.0"))
-        XCTAssertTrue(kml.contains("4.0,3.0,50.0"))
+        XCTAssertTrue(kml.contains("2.00000000,1.00000000,50.0"))
+        XCTAssertTrue(kml.contains("4.00000000,3.00000000,50.0"))
     }
 }

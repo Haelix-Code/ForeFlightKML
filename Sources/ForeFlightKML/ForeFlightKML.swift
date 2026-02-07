@@ -4,7 +4,10 @@ import GeodesySpherical
 /// A Builder for composing a KML Document (styles + placemarks).
 /// Use this to create KML documents compatible with ForeFlight's User Map Shapes feature.
 ///
-public final class ForeFlightKMLBuilder: Building {
+/// - Note: Marked `@unchecked Sendable` because instances are intended
+///   to be created, populated, and built within a single scope (not shared across threads).
+///   This allows callers to use the builder from any actor/thread context.
+public final class ForeFlightKMLBuilder: Building, @unchecked Sendable {
     /// Optional name for the `<Document>` element.
     private var documentName: String?
     /// Collection of placemarks added to this builder.
@@ -86,24 +89,28 @@ public final class ForeFlightKMLBuilder: Building {
     /// Produce the full KML string for this document.
     /// - Returns: A UTF-8 `String` containing the KML document.
     internal func kmlString() -> String {
-        var documentComponents: [String] = []
-        documentComponents.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+        // Pre-allocate a reasonable buffer size to avoid repeated reallocations
+        var buffer = String()
+        buffer.reserveCapacity(placemarks.count * 500 + 1000)
+
+        buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
         let ns = namespaces.map { "\($0.key)=\"\($0.value)\"" }.joined(separator: " ")
-        documentComponents.append("<kml \(ns)>")
-        documentComponents.append("<Document>")
+        buffer.append("<kml \(ns)>\n")
+        buffer.append("<Document>\n")
         if let name = documentName {
-            documentComponents.append("<name>\(escapeForKML(name))</name>")
+            buffer.append("<name>\(escapeForKML(name))</name>\n")
         }
 
-        let stylesXML = styleManager.kmlString()
-        if !stylesXML.isEmpty { documentComponents.append(stylesXML) }
+        styleManager.write(to: &buffer)
 
-        for placemark in placemarks { documentComponents.append(placemark.kmlString()) }
+        for placemark in placemarks {
+            placemark.write(to: &buffer)
+        }
 
-        documentComponents.append("</Document>")
-        documentComponents.append("</kml>")
+        buffer.append("</Document>\n")
+        buffer.append("</kml>")
 
-        return documentComponents.joined(separator: "\n")
+        return buffer
     }
 
     /// Produce the KML document as `Data` using the given text encoding.

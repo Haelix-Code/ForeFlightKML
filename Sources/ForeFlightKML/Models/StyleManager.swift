@@ -89,27 +89,26 @@ internal class StyleManager {
 
     // MARK: - KML Generation
 
-    /// Generate the KML string for all registered styles.
-    /// Only includes styles that have been marked as referenced.
-    /// - Parameters:
-    ///   - includeUnreferenced: If true, includes all registered styles even if not referenced (default: false)
-    /// - Returns: KML string containing all style definitions
-    public func kmlString() -> String {
-        let stylesToOutput: [KMLStyle]
-
-        stylesToOutput = styles.compactMap { styleId, style in
+    /// Write all referenced styles directly into a buffer.
+    public func write(to buffer: inout String) {
+        let stylesToOutput = styles.compactMap { styleId, style in
             referencedStyleIds.contains(styleId) ? style : nil
         }
-        guard !stylesToOutput.isEmpty else {
-            return ""
-        }
+        guard !stylesToOutput.isEmpty else { return }
 
-        // Sort by ID for consistent output
         let sortedStyles = stylesToOutput.sorted { $0.id() < $1.id() }
+        for style in sortedStyles {
+            style.write(to: &buffer)
+            buffer.append("\n")
+        }
+    }
 
-        return
-            sortedStyles
-            .map { $0.kmlString() }
-            .joined(separator: "\n")
+    /// Generate the KML string for all registered styles.
+    /// Only includes styles that have been marked as referenced.
+    /// - Returns: KML string containing all style definitions
+    public func kmlString() -> String {
+        var buffer = String()
+        write(to: &buffer)
+        return buffer
     }
 }

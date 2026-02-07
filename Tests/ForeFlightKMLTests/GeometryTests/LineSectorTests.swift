@@ -37,7 +37,7 @@ final class LineSectorTests: XCTestCase {
         XCTAssertTrue(
             kml.contains("<LineString>"), "Expected KML to contain the LineString element")
         XCTAssertTrue(
-            kml.contains("-77.055967,38.870098,2500.0"),
+            kml.contains("-77.05596700,38.87009800,2500.0"),
             "Expected KML to contain the placemark name")
     }
 }
