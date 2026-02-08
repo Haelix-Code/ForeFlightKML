@@ -60,3 +60,7 @@ public extension KMLSubStyle {
 protocol Building {
     func build(as format: OutputFormat) throws -> BuildResult
 }
+
+protocol Building {
+    func build(as format: OutputFormat) throws -> BuildResult
+}
