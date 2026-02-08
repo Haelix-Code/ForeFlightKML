@@ -17,35 +17,40 @@ extension CoordinateContainer {
     /// Default tessellate behavior is to not even include the tag
     public var tessellate: Bool? { nil }
 
+    /// Write KML directly into a mutable string buffer, avoiding intermediate allocations.
+    public func write(to buffer: inout String) {
+        write(to: &buffer, precision: kDefaultCoordinatePrecision)
+    }
+
+    public func write(to buffer: inout String, precision: Int) {
+        precondition(!coordinates.isEmpty, "\(Self.elementName) must have at least one coordinate")
+
+        buffer.append("<\(Self.elementName)>\n")
+
+        if let tessellate = tessellate {
+            buffer.append("<tessellate>\(tessellate ? 1 : 0)</tessellate>\n")
+        }
+
+        if shouldEmitAltitudeMode(hasAltitude: altitude != nil) {
+            buffer.append(altitudeModeTag())
+            buffer.append("\n")
+        }
+
+        buffer.append("<coordinates>\n")
+        for coord in coordinates {
+            coord.writeKML(to: &buffer, altitude: altitude, precision: precision)
+        }
+        buffer.append("</coordinates>\n")
+        buffer.append("</\(Self.elementName)>\n\n")
+    }
+
     /// Generate KML string representation for coordinate-based geometries.
     /// This provides a standard implementation that handles coordinates, altitude, and tessellation.
     /// - Returns: Complete KML element string
     public func kmlString() -> String {
-        precondition(!coordinates.isEmpty, "\(Self.elementName) must have at least one coordinate")
-
-        let coords3D = coordinates.map { Coordinate3D($0, altitude: altitude) }
-
-        var kmlComponents: [String] = []
-
-        kmlComponents.append("<\(Self.elementName)>")
-
-        if let tessellate = tessellate {
-            kmlComponents.append("<tessellate>\(tessellate ? 1 : 0)</tessellate>")
-        }
-
-        // Add altitude mode if altitude is specified
-        if shouldEmitAltitudeMode(hasAltitude: altitude != nil) {
-            kmlComponents.append(altitudeModeTag())
-        }
-
-        // Add coordinates
-        kmlComponents.append("<coordinates>")
-        for coord in coords3D {
-            kmlComponents.append(coord.kmlString())
-        }
-        kmlComponents.append("</coordinates>")
-        kmlComponents.append("</\(Self.elementName)>\n")
-
-        return kmlComponents.joined(separator: "\n")
+        var buffer = String()
+        buffer.reserveCapacity(coordinates.count * 30 + 100)
+        write(to: &buffer)
+        return buffer
     }
 }

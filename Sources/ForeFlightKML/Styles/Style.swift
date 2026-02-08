@@ -35,14 +35,18 @@ internal struct Style: KMLStyle {
         self.styleId = styleId
     }
 
-    public func kmlString() -> String {
-        var kmlComponents: [String] = []
-        kmlComponents.append("<Style id=\"\(self.id())\">")
-
+    public func write(to buffer: inout String) {
+        buffer.append("<Style id=\"\(self.id())\">\n")
         for subStyle in subStyles {
-            kmlComponents.append("\(subStyle.kmlString())")
+            subStyle.write(to: &buffer)
+            buffer.append("\n")
         }
-        kmlComponents.append("</Style>")
-        return kmlComponents.joined(separator: "\n")
+        buffer.append("</Style>")
+    }
+
+    public func kmlString() -> String {
+        var buffer = String()
+        write(to: &buffer)
+        return buffer
     }
 }

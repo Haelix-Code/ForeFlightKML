@@ -93,7 +93,7 @@ public struct IconStyle: KMLSubStyle {
 
 /// Icon shapes that work with Google's predefined color system.
 /// These are the "paddle" style icons that only support fixed colors.
-public enum PredefinedIconType: String {
+public enum PredefinedIconType: String, Codable {
     case pushpin
     case circle
     case square
@@ -102,7 +102,7 @@ public enum PredefinedIconType: String {
 
 /// Icon shapes that support custom colors.
 /// These are the "shapes" style icons that can be any color via KML's color tag.
-public enum CustomIconType {
+public enum CustomIconType: Codable {
     case opendiamond
     case triangle
     case forbidden
@@ -122,11 +122,40 @@ public enum CustomIconType {
         case .placemarkcircle: return "placemark_circle"
         }
     }
+
+    private static let hrefToCaseMap: [String: CustomIconType] = [
+        "open-diamond": .opendiamond,
+        "triangle": .triangle,
+        "forbidden": .forbidden,
+        "target": .target,
+        "square": .square,
+        "placemark_square": .placemarksquare,
+        "placemark_circle": .placemarkcircle,
+    ]
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(href)
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let raw = try container.decode(String.self)
+        guard let value = CustomIconType.hrefToCaseMap[raw] else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: container.codingPath,
+                    debugDescription: "Unknown CustomIconType href: \(raw)"
+                )
+            )
+        }
+        self = value
+    }
 }
 
 /// Predefined icon colors available for paddle-style icons.
 /// These are the standard colors provided by Google's KML icon set.
-public enum DefinedIconColor: String {
+public enum DefinedIconColor: String, Codable {
     case purple = "purple"
     case white = "wht"
     case green = "grn"

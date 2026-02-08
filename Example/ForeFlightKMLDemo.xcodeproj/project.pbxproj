@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E9421CEB2E7A0A4200FD39E1 /* ForeFlightKML in Frameworks */ = {isa = PBXBuildFile; productRef = E9421CEA2E7A0A4200FD39E1 /* ForeFlightKML */; };
-		E94E2EDA2E9E8699006CBDB6 /* ForeFlightKML in Frameworks */ = {isa = PBXBuildFile; productRef = E94E2ED92E9E8699006CBDB6 /* ForeFlightKML */; };
 		E9D33C1E2EAFD4F70066F05A /* ForeFlightKML in Frameworks */ = {isa = PBXBuildFile; productRef = E9D33C1D2EAFD4F70066F05A /* ForeFlightKML */; };
 /* End PBXBuildFile section */
 
@@ -29,8 +27,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9421CEB2E7A0A4200FD39E1 /* ForeFlightKML in Frameworks */,
-				E94E2EDA2E9E8699006CBDB6 /* ForeFlightKML in Frameworks */,
 				E9D33C1E2EAFD4F70066F05A /* ForeFlightKML in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,8 +70,6 @@
 			);
 			name = ForeFlightKMLDemo;
 			packageProductDependencies = (
-				E9421CEA2E7A0A4200FD39E1 /* ForeFlightKML */,
-				E94E2ED92E9E8699006CBDB6 /* ForeFlightKML */,
 				E9D33C1D2EAFD4F70066F05A /* ForeFlightKML */,
 			);
 			productName = ForeFlightKMLDemo;
@@ -107,7 +101,7 @@
 			mainGroup = E9421CAA2E7A09EA00FD39E1;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				E9D33C1C2EAFD4F70066F05A /* XCRemoteSwiftPackageReference "ForeFlightKML" */,
+				E9D33C1C2EAFD4F70066F05A /* XCLocalSwiftPackageReference ".." */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E9421CB42E7A09EA00FD39E1 /* Products */;
@@ -360,29 +354,16 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		E9D33C1C2EAFD4F70066F05A /* XCRemoteSwiftPackageReference "ForeFlightKML" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Haelix-Code/ForeFlightKML/";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.1;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		E9D33C1C2EAFD4F70066F05A /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "..";
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E9421CEA2E7A0A4200FD39E1 /* ForeFlightKML */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ForeFlightKML;
-		};
-		E94E2ED92E9E8699006CBDB6 /* ForeFlightKML */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ForeFlightKML;
-		};
 		E9D33C1D2EAFD4F70066F05A /* ForeFlightKML */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E9D33C1C2EAFD4F70066F05A /* XCRemoteSwiftPackageReference "ForeFlightKML" */;
 			productName = ForeFlightKML;
 		};
 /* End XCSwiftPackageProductDependency section */

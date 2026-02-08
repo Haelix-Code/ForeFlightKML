@@ -45,7 +45,7 @@ final class PointTests: XCTestCase {
         let kml = point.kmlString()
 
         XCTAssertTrue(kml.contains("<Point>"))
-        XCTAssertTrue(kml.contains("<coordinates>-77.036572,38.898311,17.88</coordinates>"))
+        XCTAssertTrue(kml.contains("<coordinates>-77.036572,38.898311,17.9</coordinates>"))
         XCTAssertTrue(kml.contains("<altitudeMode>"))
     }
 
@@ -66,6 +66,6 @@ final class PointTests: XCTestCase {
         XCTAssertEqual(altitudeMode, "absolute")
 
         let coordinates = try XMLTestHelper.getTextContent(elementName: "coordinates", from: xml)
-        XCTAssertEqual(coordinates, "-77.036572,38.898311,17.88")
+        XCTAssertEqual(coordinates, "-77.036572,38.898311,17.9")
     }
 }
