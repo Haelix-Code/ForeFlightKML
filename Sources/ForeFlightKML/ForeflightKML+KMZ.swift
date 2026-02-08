@@ -6,15 +6,22 @@ public extension ForeFlightKMLBuilder {
     /// Build a KMZ (ZIP) containing doc.kml and any required local assets.
     func buildKMZ() throws -> Data? {
 
-        let kmlData = buildKML()
+        // Build KML string directly, then convert to UTF-8 data once
+        let kmlString = kmlString()
+        guard let kmlData = kmlString.data(using: .utf8) else {
+            return nil
+        }
 
         let archive = try Archive(accessMode: .create)
+
+        // Use .none compression for small documents (< 100KB) to avoid DEFLATE overhead
+        let compressionMethod: CompressionMethod = kmlData.count > 100_000 ? .deflate : .none
 
         try archive.addEntry(
             with: "doc.kml",
             type: .file,
             uncompressedSize: Int64(kmlData.count),
-            compressionMethod: .deflate,
+            compressionMethod: compressionMethod,
             provider: { position, size in
                 let start = Int(position)
                 guard start < kmlData.count else { return Data() }

@@ -24,21 +24,34 @@ public struct Point: KMLElement, AltitudeSupport {
         self.altitudeMode = altitudeMode
     }
 
-    public func kmlString() -> String {
-        let coordinate3D = Coordinate3D(coordinate, altitude: altitude)
-        var kmlComponents: [String] = []
+    public func write(to buffer: inout String) {
+        write(to: &buffer, precision: kDefaultCoordinatePrecision)
+    }
 
-        kmlComponents.append("<Point>")
-        kmlComponents.append("<gx:drawOrder>1</gx:drawOrder>")
+    public func write(to buffer: inout String, precision: Int) {
+        buffer.append("<Point>\n")
+        buffer.append("<gx:drawOrder>1</gx:drawOrder>\n")
 
-        // Only emit altitude mode if we have altitude values
         if shouldEmitAltitudeMode(hasAltitude: altitude != nil) {
-            kmlComponents.append(altitudeModeTag())
+            buffer.append(altitudeModeTag())
+            buffer.append("\n")
         }
 
-        kmlComponents.append("<coordinates>\(coordinate3D.kmlString())</coordinates>")
-        kmlComponents.append("</Point>")
+        buffer.append("<coordinates>")
+        buffer.append(formatCoordinate(coordinate.longitude, precision: precision))
+        buffer.append(",")
+        buffer.append(formatCoordinate(coordinate.latitude, precision: precision))
+        if let alt = altitude {
+            buffer.append(",")
+            buffer.append(formatCoordinate(alt, precision: 1))
+        }
+        buffer.append("</coordinates>\n")
+        buffer.append("</Point>\n")
+    }
 
-        return kmlComponents.joined(separator: "\n")
+    public func kmlString() -> String {
+        var buffer = String()
+        write(to: &buffer)
+        return buffer
     }
 }

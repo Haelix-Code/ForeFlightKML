@@ -22,7 +22,7 @@ final class ExampleKMLRecreationTests: XCTestCase {
         let kml = builder.kmlString()
         XCTAssertTrue(kml.contains("<name>ypin</name>"))
         XCTAssertTrue(kml.contains("ylw-pushpin.png"))
-        XCTAssertTrue(kml.contains("-102.6009416726494,33.13980174601483,0"))
+        XCTAssertTrue(kml.contains("-102.60094167,33.13980175,0.0"))
     }
 
     func testBluePushpin() {

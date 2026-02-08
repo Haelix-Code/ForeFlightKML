@@ -25,27 +25,38 @@ public struct Polygon: KMLElement, AltitudeSupport {
         self.altitudeMode = altitudeMode
     }
 
-    public func kmlString() -> String {
-        var kmlComponents: [String] = []
-        kmlComponents.append("<Polygon>")
+    public func write(to buffer: inout String) {
+        write(to: &buffer, precision: kDefaultCoordinatePrecision)
+    }
+
+    public func write(to buffer: inout String, precision: Int) {
+        buffer.append("<Polygon>\n")
 
         if let tessellate = tessellate {
-            kmlComponents.append("<tessellate>\(tessellate ? 1 : 0)</tessellate>")
+            buffer.append("<tessellate>\(tessellate ? 1 : 0)</tessellate>\n")
         }
 
-        // Add altitude mode if any ring has altitude
         let allRings = [outer] + inner
         let hasAnyAltitude = allRings.contains { $0.altitude != nil }
         if shouldEmitAltitudeMode(hasAltitude: hasAnyAltitude) {
-            kmlComponents.append(altitudeModeTag())
+            buffer.append(altitudeModeTag())
+            buffer.append("\n")
         }
 
-        kmlComponents.append("<outerBoundaryIs>\n" + outer.kmlString() + "</outerBoundaryIs>")
+        buffer.append("<outerBoundaryIs>\n")
+        outer.write(to: &buffer, precision: precision)
+        buffer.append("</outerBoundaryIs>\n")
         for ring in inner {
-            kmlComponents.append("<innerBoundaryIs>\n" + ring.kmlString() + "</innerBoundaryIs>")
+            buffer.append("<innerBoundaryIs>\n")
+            ring.write(to: &buffer, precision: precision)
+            buffer.append("</innerBoundaryIs>\n")
         }
-        kmlComponents.append("</Polygon>")
+        buffer.append("</Polygon>\n")
+    }
 
-        return kmlComponents.joined(separator: "\n")
+    public func kmlString() -> String {
+        var buffer = String()
+        write(to: &buffer)
+        return buffer
     }
 }

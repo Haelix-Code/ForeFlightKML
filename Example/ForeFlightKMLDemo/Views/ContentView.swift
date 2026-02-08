@@ -5,7 +5,6 @@ import ForeFlightKML
 struct ContentView: View {
     @State private var lastTapCoordinate: CLLocationCoordinate2D?
     @State private var kmlToShareURL: URL?
-    @State private var showingShare = false
 
     private let defaultRadiusMeters: Double = 500.0
 
@@ -26,23 +25,25 @@ struct ContentView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Button(action: shareIfAvailable) {
+                    if let url = kmlToShareURL {
+                        ShareLink(item: url) {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.title2)
+                                .padding()
+                                .background(Color(.systemBackground).opacity(0.9))
+                                .clipShape(Circle())
+                        }
+                        .padding()
+                    } else {
                         Image(systemName: "square.and.arrow.up")
                             .font(.title2)
                             .padding()
                             .background(Color(.systemBackground).opacity(0.9))
                             .clipShape(Circle())
+                            .opacity(0.4)
+                            .padding()
                     }
-                    .disabled(kmlToShareURL == nil)
-                    .padding()
                 }
-            }
-        }
-        .sheet(isPresented: $showingShare) {
-            if let url = kmlToShareURL {
-                ActivityViewController(activityItems: [url])
-            } else {
-                Text("No KML available")
             }
         }
     }
@@ -50,25 +51,10 @@ struct ContentView: View {
     private func handleMapTap(_ coord: CLLocationCoordinate2D) {
         lastTapCoordinate = coord
         do {
-            let buildResult = try KMLGenerator.generateCircleKML(center: coord, radiusMeters: defaultRadiusMeters)
-
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
-
-            let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(dateFormatter.string(from: Date())).\(buildResult.fileExtension)")
-            
-            try buildResult.data.write(to: tmpURL)
-            kmlToShareURL = tmpURL
-            showingShare = true
+            kmlToShareURL = try KMLGenerator.generateCircleKML(center: coord, radiusMeters: defaultRadiusMeters)
         } catch {
-            print("Failed to write KMZ: \(error)")
+            print("Failed to generate KML: \(error)")
             kmlToShareURL = nil
-        }
-    }
-
-    private func shareIfAvailable() {
-        if kmlToShareURL != nil {
-            showingShare = true
         }
     }
 }

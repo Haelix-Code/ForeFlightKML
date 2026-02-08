@@ -36,6 +36,16 @@ public protocol LineLike: KMLElement, AltitudeSupport {
 }
 
 extension LineLike {
+    public func write(to buffer: inout String) {
+        write(to: &buffer, precision: kDefaultCoordinatePrecision)
+    }
+
+    public func write(to buffer: inout String, precision: Int) {
+        let lineString = LineString(
+            coordinates: coordinates, altitude: altitude, tessellate: tessellate)
+        lineString.write(to: &buffer, precision: precision)
+    }
+
     public func kmlString() -> String {
         let lineString = LineString(
             coordinates: coordinates, altitude: altitude, tessellate: tessellate)
