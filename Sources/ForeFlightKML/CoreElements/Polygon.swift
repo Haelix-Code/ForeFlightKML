@@ -26,6 +26,10 @@ public struct Polygon: KMLElement, AltitudeSupport {
     }
 
     public func write(to buffer: inout String) {
+        write(to: &buffer, precision: kDefaultCoordinatePrecision)
+    }
+
+    public func write(to buffer: inout String, precision: Int) {
         buffer.append("<Polygon>\n")
 
         if let tessellate = tessellate {
@@ -40,11 +44,11 @@ public struct Polygon: KMLElement, AltitudeSupport {
         }
 
         buffer.append("<outerBoundaryIs>\n")
-        outer.write(to: &buffer)
+        outer.write(to: &buffer, precision: precision)
         buffer.append("</outerBoundaryIs>\n")
         for ring in inner {
             buffer.append("<innerBoundaryIs>\n")
-            ring.write(to: &buffer)
+            ring.write(to: &buffer, precision: precision)
             buffer.append("</innerBoundaryIs>\n")
         }
         buffer.append("</Polygon>\n")

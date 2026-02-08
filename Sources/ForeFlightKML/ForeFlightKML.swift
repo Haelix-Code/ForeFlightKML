@@ -10,6 +10,9 @@ import GeodesySpherical
 public final class ForeFlightKMLBuilder: Building, @unchecked Sendable {
     /// Optional name for the `<Document>` element.
     private var documentName: String?
+    /// Maximum decimal places for coordinate values. Trailing zeros are trimmed,
+    /// so `2.0` stays as `"2.0"` rather than `"2.00000000"`. Default is 8.
+    public var coordinatePrecision: Int = kDefaultCoordinatePrecision
     /// Collection of placemarks added to this builder.
     private var placemarks: [Placemark] = []
     /// Manages styles and deduplication
@@ -35,6 +38,16 @@ public final class ForeFlightKMLBuilder: Building, @unchecked Sendable {
     @discardableResult
     public func setDocumentName(_ name: String?) -> Self {
         self.documentName = name
+        return self
+    }
+
+    /// Set the maximum decimal places for coordinate values.
+    /// Trailing zeros are always trimmed (e.g. `2.0` not `2.00000000`).
+    /// - Parameter precision: Maximum decimal places (default 8, clamped to 1...15)
+    /// - Returns: Self for method chaining
+    @discardableResult
+    public func setCoordinatePrecision(_ precision: Int) -> Self {
+        self.coordinatePrecision = max(1, min(15, precision))
         return self
     }
 
@@ -104,7 +117,7 @@ public final class ForeFlightKMLBuilder: Building, @unchecked Sendable {
         styleManager.write(to: &buffer)
 
         for placemark in placemarks {
-            placemark.write(to: &buffer)
+            placemark.write(to: &buffer, precision: coordinatePrecision)
         }
 
         buffer.append("</Document>\n")

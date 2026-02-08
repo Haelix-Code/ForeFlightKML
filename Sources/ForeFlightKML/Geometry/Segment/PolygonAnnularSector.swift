@@ -32,6 +32,10 @@ public struct PolygonAnnularSector: KMLElement, AltitudeSupport {
         polygon.write(to: &buffer)
     }
 
+    public func write(to buffer: inout String, precision: Int) {
+        polygon.write(to: &buffer, precision: precision)
+    }
+
     public func kmlString() -> String {
         return polygon.kmlString()
     }

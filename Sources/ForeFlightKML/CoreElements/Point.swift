@@ -25,6 +25,10 @@ public struct Point: KMLElement, AltitudeSupport {
     }
 
     public func write(to buffer: inout String) {
+        write(to: &buffer, precision: kDefaultCoordinatePrecision)
+    }
+
+    public func write(to buffer: inout String, precision: Int) {
         buffer.append("<Point>\n")
         buffer.append("<gx:drawOrder>1</gx:drawOrder>\n")
 
@@ -34,9 +38,12 @@ public struct Point: KMLElement, AltitudeSupport {
         }
 
         buffer.append("<coordinates>")
-        buffer.append(String(format: "%.8f,%.8f", coordinate.longitude, coordinate.latitude))
+        buffer.append(formatCoordinate(coordinate.longitude, precision: precision))
+        buffer.append(",")
+        buffer.append(formatCoordinate(coordinate.latitude, precision: precision))
         if let alt = altitude {
-            buffer.append(String(format: ",%.1f", alt))
+            buffer.append(",")
+            buffer.append(formatCoordinate(alt, precision: 1))
         }
         buffer.append("</coordinates>\n")
         buffer.append("</Point>\n")

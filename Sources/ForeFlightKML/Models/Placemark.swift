@@ -44,6 +44,10 @@ public struct Placemark {
     }
 
     public func write(to buffer: inout String) {
+        write(to: &buffer, precision: kDefaultCoordinatePrecision)
+    }
+
+    public func write(to buffer: inout String, precision: Int) {
         buffer.append("<Placemark>\n")
         if let name = name {
             buffer.append("<name>\(escapeForKML(name))</name>\n")
@@ -51,7 +55,7 @@ public struct Placemark {
         if let su = styleUrl {
             buffer.append("<styleUrl>#\(su)</styleUrl>\n")
         }
-        geometry.write(to: &buffer)
+        geometry.write(to: &buffer, precision: precision)
         buffer.append("</Placemark>\n")
     }
 

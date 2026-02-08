@@ -23,12 +23,12 @@ final class PolygonTests: XCTestCase {
             kml.contains(
                 """
                 <coordinates>
-                20.00000000,10.00000000
-                40.00000000,30.00000000
-                20.00000000,10.00000000
+                20.0,10.0
+                40.0,30.0
+                20.0,10.0
                 </coordinates>
                 """))
-        XCTAssertTrue(kml.contains("40.00000000,30.00000000"))
+        XCTAssertTrue(kml.contains("40.0,30.0"))
         XCTAssertFalse(kml.contains("<innerBoundaryIs>"))
         XCTAssertFalse(kml.contains("<altitudeMode>"))
     }
@@ -53,8 +53,8 @@ final class PolygonTests: XCTestCase {
         XCTAssertTrue(kml.contains("<tessellate>0</tessellate>"))
         XCTAssertTrue(kml.contains("<outerBoundaryIs>"))
         XCTAssertTrue(kml.contains("<innerBoundaryIs>"))
-        XCTAssertTrue(kml.contains("2.00000000,2.00000000,50.0"))
-        XCTAssertTrue(kml.contains("3.00000000,3.00000000,50.0"))
+        XCTAssertTrue(kml.contains("2.0,2.0,50.0"))
+        XCTAssertTrue(kml.contains("3.0,3.0,50.0"))
         XCTAssertTrue(kml.contains("<altitudeMode>absolute</altitudeMode>"))
     }
 
@@ -75,10 +75,10 @@ final class PolygonTests: XCTestCase {
 
         XCTAssertTrue(kml.contains("<Polygon>"))
         XCTAssertTrue(kml.contains("<altitudeMode>absolute</altitudeMode>"))
-        XCTAssertTrue(kml.contains("2.00000000,2.00000000,20.0"))
-        XCTAssertTrue(kml.contains("3.00000000,3.00000000,20.0"))
-        XCTAssertTrue(kml.contains("0.00000000,0.00000000"))
-        XCTAssertTrue(kml.contains("1.00000000,1.00000000"))
+        XCTAssertTrue(kml.contains("2.0,2.0,20.0"))
+        XCTAssertTrue(kml.contains("3.0,3.0,20.0"))
+        XCTAssertTrue(kml.contains("0.0,0.0"))
+        XCTAssertTrue(kml.contains("1.0,1.0"))
     }
 
     func testKmlWithAllRingsWithoutAltitude() {

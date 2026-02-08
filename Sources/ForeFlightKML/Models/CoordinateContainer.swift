@@ -19,6 +19,10 @@ extension CoordinateContainer {
 
     /// Write KML directly into a mutable string buffer, avoiding intermediate allocations.
     public func write(to buffer: inout String) {
+        write(to: &buffer, precision: kDefaultCoordinatePrecision)
+    }
+
+    public func write(to buffer: inout String, precision: Int) {
         precondition(!coordinates.isEmpty, "\(Self.elementName) must have at least one coordinate")
 
         buffer.append("<\(Self.elementName)>\n")
@@ -34,7 +38,7 @@ extension CoordinateContainer {
 
         buffer.append("<coordinates>\n")
         for coord in coordinates {
-            coord.writeKML(to: &buffer, altitude: altitude)
+            coord.writeKML(to: &buffer, altitude: altitude, precision: precision)
         }
         buffer.append("</coordinates>\n")
         buffer.append("</\(Self.elementName)>\n\n")

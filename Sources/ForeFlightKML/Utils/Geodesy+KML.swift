@@ -6,16 +6,56 @@ import GeodesySpherical
 // as defined by the World Geodetic System of 1984 (WGS-84).
 // The vertical component (altitude) is measured in meters from the WGS84 EGM96 Geoid vertical datum.
 
+/// Default coordinate precision when none is specified.
+internal let kDefaultCoordinatePrecision = 8
+
+/// Format a coordinate value to the given precision, trimming trailing zeros
+/// but always keeping at least one decimal place.
+///
+/// Examples (precision 8):
+///   `formatCoordinate(2.0, precision: 8)` → `"2.0"`
+///   `formatCoordinate(51.123, precision: 8)` → `"51.123"`
+///   `formatCoordinate(-1.58156600, precision: 8)` → `"-1.581566"`
+///
+/// Examples (precision 4):
+///   `formatCoordinate(51.12345678, precision: 4)` → `"51.1235"`
+///   `formatCoordinate(2.0, precision: 4)` → `"2.0"`
+///
+internal func formatCoordinate(_ value: Double, precision: Int) -> String {
+    let formatted = String(format: "%.\(precision)f", value)
+
+    // Find the decimal point
+    guard let dotIndex = formatted.firstIndex(of: ".") else {
+        return formatted + ".0"
+    }
+
+    // Trim trailing zeros, but keep at least one digit after the decimal
+    let minimumEnd = formatted.index(dotIndex, offsetBy: 2) // keeps "X.Y" at minimum
+    var end = formatted.endIndex
+    while end > minimumEnd && formatted[formatted.index(before: end)] == "0" {
+        end = formatted.index(before: end)
+    }
+
+    return String(formatted[formatted.startIndex..<end])
+}
+
 extension GeodesySpherical.Coordinate {
-    public func kmlString() -> String {
-        return String(format: "%.8f,%.8f", self.longitude, self.latitude)
+    /// Format coordinate as KML `longitude,latitude` string with given precision.
+    /// Trailing zeros are trimmed (e.g. `2.0` not `2.00000000`).
+    public func kmlString(precision: Int = 8) -> String {
+        let lon = formatCoordinate(self.longitude, precision: precision)
+        let lat = formatCoordinate(self.latitude, precision: precision)
+        return "\(lon),\(lat)"
     }
 
     /// Write coordinate in KML format directly into a buffer, with optional altitude.
-    internal func writeKML(to buffer: inout String, altitude: Double? = nil) {
-        buffer.append(String(format: "%.8f,%.8f", self.longitude, self.latitude))
+    internal func writeKML(to buffer: inout String, altitude: Double? = nil, precision: Int = kDefaultCoordinatePrecision) {
+        buffer.append(formatCoordinate(self.longitude, precision: precision))
+        buffer.append(",")
+        buffer.append(formatCoordinate(self.latitude, precision: precision))
         if let alt = altitude {
-            buffer.append(String(format: ",%.1f", alt))
+            buffer.append(",")
+            buffer.append(formatCoordinate(alt, precision: 1))
         }
         buffer.append("\n")
     }
@@ -43,11 +83,14 @@ internal struct Coordinate3D: Hashable {
     public var latitude: GeodesySpherical.Degrees { coordinate.latitude }
     public var longitude: GeodesySpherical.Degrees { coordinate.longitude }
 
-    public func kmlString() -> String {
+    public func kmlString(precision: Int = kDefaultCoordinatePrecision) -> String {
+        let lon = formatCoordinate(self.longitude, precision: precision)
+        let lat = formatCoordinate(self.latitude, precision: precision)
         if let altitude = self.altitude {
-            return String(format: "%.8f,%.8f,%.1f", self.longitude, self.latitude, altitude)
+            let alt = formatCoordinate(altitude, precision: 1)
+            return "\(lon),\(lat),\(alt)"
         } else {
-            return String(format: "%.8f,%.8f", self.longitude, self.latitude)
+            return "\(lon),\(lat)"
         }
     }
 }

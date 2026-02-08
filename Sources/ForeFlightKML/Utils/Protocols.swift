@@ -7,11 +7,19 @@ public protocol KMLElement {
     /// Write KML directly into a mutable string buffer for better performance.
     /// Default implementation falls back to `kmlString()`.
     func write(to buffer: inout String)
+    /// Write KML with coordinate precision control.
+    /// - Parameters:
+    ///   - buffer: The string buffer to append to
+    ///   - precision: Maximum decimal places for coordinates (trailing zeros are trimmed)
+    func write(to buffer: inout String, precision: Int)
 }
 
 public extension KMLElement {
     func write(to buffer: inout String) {
         buffer.append(kmlString())
+    }
+    func write(to buffer: inout String, precision: Int) {
+        write(to: &buffer)
     }
 }
 
