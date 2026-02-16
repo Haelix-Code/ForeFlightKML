@@ -130,7 +130,7 @@ public enum CustomIconType: Codable {
         "target": .target,
         "square": .square,
         "placemark_square": .placemarksquare,
-        "placemark_circle": .placemarkcircle,
+        "placemark_circle": .placemarkcircle
     ]
 
     public func encode(to encoder: any Encoder) throws {
