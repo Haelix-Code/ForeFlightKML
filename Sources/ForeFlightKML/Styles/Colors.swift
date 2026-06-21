@@ -1,6 +1,6 @@
 import Foundation
 
-public struct KMLColor: Equatable, CustomStringConvertible {
+public struct KMLColor: Equatable, CustomStringConvertible, Sendable {
     public var description: String { kmlHexString }
 
     /// Single internal storage: bits [31..24]=A, [23..16]=R, [15..8]=G, [7..0]=B

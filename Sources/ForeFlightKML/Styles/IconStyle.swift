@@ -102,7 +102,7 @@ public enum PredefinedIconType: String, Codable {
 
 /// Icon shapes that support custom colors.
 /// These are the "shapes" style icons that can be any color via KML's color tag.
-public enum CustomIconType: Codable {
+public enum CustomIconType: Codable, Sendable {
     case opendiamond
     case triangle
     case forbidden
