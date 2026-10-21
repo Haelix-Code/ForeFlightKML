@@ -1,5 +1,4 @@
 import XCTest
-import GeodesySpherical
 @testable import ForeFlightKML
 
 final class CoordinateFormattingTests: XCTestCase {

@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// A simple line connecting multiple coordinates in sequence.
 ///

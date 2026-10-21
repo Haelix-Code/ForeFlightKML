@@ -1,6 +1,5 @@
 import XCTest
 @testable import ForeFlightKML
-import GeodesySpherical
 import ZIPFoundation
 
 final class KMZPackagingTests: XCTestCase {

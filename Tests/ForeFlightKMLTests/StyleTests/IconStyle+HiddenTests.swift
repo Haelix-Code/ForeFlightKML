@@ -1,6 +1,5 @@
 import XCTest
 @testable import ForeFlightKML
-import GeodesySpherical
 
 final class LabelOnlyTests: XCTestCase {
 

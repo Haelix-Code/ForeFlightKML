@@ -1,5 +1,4 @@
 import Foundation
-import GeodesySpherical
 import CoreLocation
 import ForeFlightKML
 

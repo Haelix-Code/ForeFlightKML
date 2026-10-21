@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// Defines a closed line string, typically the outer boundary of a Polygon.
 /// Optionally, a LinearRing can also be used as the inner boundary of a Polygon to create holes in the Polygon.
