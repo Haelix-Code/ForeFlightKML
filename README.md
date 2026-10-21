@@ -139,3 +139,6 @@ The repo contains an `Example` app that demonstrates building shapes and the `Te
 ## Contributing
 
 PRs welcome. Please include unit tests for any new behavior and update examples.
+
+## Affiliation
+This is an independent tool and is not affiliated with, sponsored by, or endorsed by ForeFlight. 
