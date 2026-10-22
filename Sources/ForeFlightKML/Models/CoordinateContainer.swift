@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// Protocol for KML elements that contain coordinate arrays and support altitude/tessellation.
 /// Used by LineString, LinearRing, and similar coordinate-based geometries.

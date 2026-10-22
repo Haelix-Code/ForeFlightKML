@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 public struct PolygonSector: KMLElement, AltitudeSupport {
     let polygon: Polygon

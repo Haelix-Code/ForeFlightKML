@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// A circular polygon geometry approximated with multiple line segments.
 ///

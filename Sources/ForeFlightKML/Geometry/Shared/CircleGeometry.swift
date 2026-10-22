@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 internal enum CircleGeometry {
 

@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// An arc or sector geometry (like a pie slice) defined by center, radius, and angular extents.
 ///

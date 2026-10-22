@@ -1,5 +1,5 @@
 import Foundation
-import GeodesySpherical
+import Vincenty
 
 extension ForeFlightKMLBuilder {
 

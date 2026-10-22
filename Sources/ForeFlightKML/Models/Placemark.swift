@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// Represents a Feature Placemark that combines geometry with styling and metadata.
 ///

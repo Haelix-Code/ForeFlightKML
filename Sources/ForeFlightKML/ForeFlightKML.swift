@@ -1,5 +1,5 @@
 import Foundation
-import GeodesySpherical
+import Vincenty
 
 /// A Builder for composing a KML Document (styles + placemarks).
 /// Use this to create KML documents compatible with ForeFlight's User Map Shapes feature.

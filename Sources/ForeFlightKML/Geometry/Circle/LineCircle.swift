@@ -1,5 +1,5 @@
 import Foundation
-import GeodesySpherical
+import Vincenty
 
 /// A circular line geometry approximated with multiple line segments.
 ///
