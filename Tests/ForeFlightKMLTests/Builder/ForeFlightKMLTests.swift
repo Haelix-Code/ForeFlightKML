@@ -1,4 +1,3 @@
-import GeodesySpherical
 import Foundation
 import XCTest
 

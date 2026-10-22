@@ -30,7 +30,6 @@ See `/Tests/UserMapShapeTests/UserMapShapesSampleFullTest.swift`
 
 ```swift
 import ForeFlightKML
-import GeodesySpherical
 
 let builder = ForeFlightKMLBuilder(documentName: "Airport with ATZ")
 
@@ -126,7 +125,7 @@ Full public API surface is visible in the package sources.
 
 ## Notes, conventions and gotchas
 
-- **Coordinates order**: KML requires `longitude,latitude[,altitude]`. The public API accepts `Coordinate(latitude:..., longitude:...)` (from `Geodesy`) and the framework emits coordinates in the KML `lon,lat[,alt]` order.
+- **Coordinates order**: KML requires `longitude,latitude[,altitude]`. The public API accepts `Coordinate(latitude:..., longitude:...)` (a typealias for [Vincenty](https://github.com/Haelix-Code/Vincenty)'s `GeodeticCoordinate`) and the framework emits coordinates in the KML `lon,lat[,alt]` order.
 - **Units**: Distances (e.g. `LineCircle.radius`) are in **meters**.
 - **Angles/bearings**: bearings (for arc & circle generation) are interpreted in degrees (0..360). The bearing convention is clockwise from north.
 - **Altitude**: When you provide altitudes, the `AltitudeMode` is emitted (defaults to `.absolute` in most geometries).

@@ -1,5 +1,6 @@
 import Foundation
-import GeodesySpherical
+// Re-exported so `Coordinate` is fully usable with just `import ForeFlightKML`.
+@_exported import Vincenty
 
 // KML uses 3D geographic coordinates: longitude, latitude and altitude, in that order.
 // The longitude and latitude components are in decimal degrees
@@ -39,7 +40,21 @@ internal func formatCoordinate(_ value: Double, precision: Int) -> String {
     return String(formatted[formatted.startIndex..<end])
 }
 
-extension GeodesySpherical.Coordinate {
+/// A WGS-84 latitude/longitude in decimal degrees.
+public typealias Coordinate = GeodeticCoordinate
+
+extension Coordinate {
+    /// The point `distance` metres from here along a WGS-84 geodesic, setting off on `bearing`
+    /// degrees from north (Vincenty direct solution).
+    ///
+    /// Non-finite input yields a NaN coordinate rather than trapping.
+    internal func destination(with distance: Double, bearing: Double) -> Coordinate {
+        guard let solution = try? Ellipsoid.wgs84.direct(from: self, distance: distance, initialBearing: bearing) else {
+            return Coordinate(latitude: .nan, longitude: .nan)
+        }
+        return solution.destination
+    }
+
     /// Format coordinate as KML `longitude,latitude` string with given precision.
     /// Trailing zeros are trimmed (e.g. `2.0` not `2.00000000`).
     public func kmlString(precision: Int = 8) -> String {
@@ -68,7 +83,7 @@ internal struct Coordinate3D: Hashable {
     public let altitude: Double?
 
     public init(
-        latitude: GeodesySpherical.Degrees, longitude: GeodesySpherical.Degrees,
+        latitude: Double, longitude: Double,
         altitude: Double? = nil
     ) {
         self.coordinate = Coordinate(latitude: latitude, longitude: longitude)
@@ -80,8 +95,8 @@ internal struct Coordinate3D: Hashable {
         self.altitude = altitude
     }
 
-    public var latitude: GeodesySpherical.Degrees { coordinate.latitude }
-    public var longitude: GeodesySpherical.Degrees { coordinate.longitude }
+    public var latitude: Double { coordinate.latitude }
+    public var longitude: Double { coordinate.longitude }
 
     public func kmlString(precision: Int = kDefaultCoordinatePrecision) -> String {
         let lon = formatCoordinate(self.longitude, precision: precision)

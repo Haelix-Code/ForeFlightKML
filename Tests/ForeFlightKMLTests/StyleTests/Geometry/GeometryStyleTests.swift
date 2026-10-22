@@ -1,4 +1,3 @@
-import GeodesySpherical
 import XCTest
 
 @testable import ForeFlightKML
