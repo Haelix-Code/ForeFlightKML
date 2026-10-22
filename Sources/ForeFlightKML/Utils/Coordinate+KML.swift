@@ -64,7 +64,9 @@ extension Coordinate {
     }
 
     /// Write coordinate in KML format directly into a buffer, with optional altitude.
-    internal func writeKML(to buffer: inout String, altitude: Double? = nil, precision: Int = kDefaultCoordinatePrecision) {
+    internal func writeKML(
+        to buffer: inout String, altitude: Double? = nil, precision: Int = kDefaultCoordinatePrecision
+    ) {
         buffer.append(formatCoordinate(self.longitude, precision: precision))
         buffer.append(",")
         buffer.append(formatCoordinate(self.latitude, precision: precision))
