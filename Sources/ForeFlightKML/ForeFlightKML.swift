@@ -4,10 +4,11 @@ import Vincenty
 /// A Builder for composing a KML Document (styles + placemarks).
 /// Use this to create KML documents compatible with ForeFlight's User Map Shapes feature.
 ///
-/// - Note: Marked `@unchecked Sendable` because instances are intended
-///   to be created, populated, and built within a single scope (not shared across threads).
-///   This allows callers to use the builder from any actor/thread context.
-public final class ForeFlightKMLBuilder: Building, @unchecked Sendable {
+/// - Note: Not `Sendable`: the builder holds unsynchronised mutable state, so create, populate
+///   and build it within a single scope. It can still be handed off to another task or actor
+///   as long as the sender stops using it. The `Placemark`s and styles it takes, and the
+///   `BuildResult` it produces, are all `Sendable`.
+public final class ForeFlightKMLBuilder: Building {
     /// Optional name for the `<Document>` element.
     private var documentName: String?
     /// Maximum decimal places for coordinate values. Trailing zeros are trimmed,
