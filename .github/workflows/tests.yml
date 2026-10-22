@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: swift test (macOS) + iOS build
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      # Package.swift needs Swift 6.2 tools, which ship with Xcode 26.
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26.x'
+
+      - name: Toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      # Tests use XMLDocument, which is macOS-only, so they run on macOS rather than iOS.
+      - name: Test (macOS)
+        run: swift test --parallel
+
+      - name: Build (iOS Simulator)
+        run: |
+          xcodebuild build \
+            -scheme ForeFlightKML \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO
