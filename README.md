@@ -10,7 +10,7 @@ This package provides a small, focused API for composing KML/KMZ documents suita
 - Compose `Placemark`s with `Point`, `LineString`, `Polygon` and derived geometry helpers (circles, arc sectors, etc.).
 - Create reusable styles (`Style`, `LineStyle`, `PolyStyle`, `IconStyle`, `LabelStyle`) and assign them to placemarks.
 - `ForeFlightKMLBuilder` collects placemarks and styles, emits a complete `kml` or `kmz` document.
-- Thread-safe — `ForeFlightKMLBuilder` is `Sendable`, so KML generation can run off the main thread.
+- Swift 6 concurrency-ready — geometry, styles, `Placemark` and `BuildResult` are `Sendable`, so KML generation can run off the main thread.
 - Lightweight — no UI code.
 
 ## Install
@@ -119,7 +119,7 @@ Full public API surface is visible in the package sources.
 ## Performance
 
 - **Buffer-based generation** — KML is built using a single mutable `String` buffer rather than array concatenation, avoiding intermediate allocations.
-- **Sendable** — `ForeFlightKMLBuilder` conforms to `Sendable`, allowing KML/KMZ generation to run on a background thread for a responsive UI.
+- **Background generation** — build KML/KMZ off the main thread for a responsive UI. Geometry, styles, `Placemark` and `BuildResult` are `Sendable`. `ForeFlightKMLBuilder` deliberately isn't (it holds unsynchronised mutable state): create and build it within one task, or hand it to another task or actor and stop using it.
 - **Smart compression** — small documents (< 100 KB) skip DEFLATE compression in KMZ output, reducing overhead.
 - **Efficient geometry** — circle point generation uses direct arithmetic rather than `Measurement` conversions.
 

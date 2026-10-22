@@ -18,7 +18,7 @@ extension AltitudeSupport {
 
 /// Supported Altitude Modes per KML 2.2 specification
 /// See: https://developers.google.com/kml/documentation/kmlreference#altitudemode
-public enum AltitudeMode: String, Equatable {
+public enum AltitudeMode: String, Equatable, Sendable {
     case absolute
     case clampToGround
     case relativeToGround
