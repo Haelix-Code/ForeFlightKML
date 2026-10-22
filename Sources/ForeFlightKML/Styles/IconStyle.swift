@@ -93,7 +93,7 @@ public struct IconStyle: KMLSubStyle {
 
 /// Icon shapes that work with Google's predefined color system.
 /// These are the "paddle" style icons that only support fixed colors.
-public enum PredefinedIconType: String, Codable {
+public enum PredefinedIconType: String, Codable, Sendable {
     case pushpin
     case circle
     case square
@@ -155,7 +155,7 @@ public enum CustomIconType: Codable, Sendable {
 
 /// Predefined icon colors available for paddle-style icons.
 /// These are the standard colors provided by Google's KML icon set.
-public enum DefinedIconColor: String, Codable {
+public enum DefinedIconColor: String, Codable, Sendable {
     case purple = "purple"
     case white = "wht"
     case green = "grn"
