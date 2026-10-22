@@ -6,14 +6,14 @@ on:
       - '.github/workflows/swiftlint.yml'
       - '.swiftlint.yml'
       - '**/*.swift'
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   SwiftLint:
     runs-on: ubuntu-latest
+    # Official SwiftLint image, pinned to match local development.
+    container: ghcr.io/realm/swiftlint:0.65.1
     steps:
-      - uses: actions/checkout@v5
-      - name: GitHub Action for SwiftLint with --strict
-        uses: norio-nomura/action-swiftlint@3.2.1
-        with:
-          args: --fix --quiet
+      - uses: actions/checkout@v7
+      - name: SwiftLint --strict
+        run: swiftlint lint --strict --reporter github-actions-logging

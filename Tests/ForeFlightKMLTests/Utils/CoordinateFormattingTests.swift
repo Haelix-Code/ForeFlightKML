@@ -79,7 +79,7 @@ final class CoordinateFormattingTests: XCTestCase {
         XCTAssertEqual(builder.coordinatePrecision, 15)
     }
 
-    func testBuilder_precisionAffectsOutput() {
+    func testBuilder_precisionAffectsOutput() throws {
         let builder = ForeFlightKMLBuilder(documentName: "Test")
         builder.setCoordinatePrecision(4)
 
@@ -91,7 +91,7 @@ final class CoordinateFormattingTests: XCTestCase {
             style: PointStyle(icon: .predefined(type: .pushpin, color: .white))
         )
 
-        let result = try! builder.build(as: .kml)
+        let result = try builder.build(as: .kml)
         let kml = String(data: result.data, encoding: .utf8)!
 
         // With precision 4, coordinates should be trimmed to 4dp max
@@ -100,7 +100,7 @@ final class CoordinateFormattingTests: XCTestCase {
         XCTAssertFalse(kml.contains("-1.58156634"), "Should not have 8dp coordinates with precision 4")
     }
 
-    func testBuilder_defaultPrecision_trimsTrailingZeros() {
+    func testBuilder_defaultPrecision_trimsTrailingZeros() throws {
         let builder = ForeFlightKMLBuilder(documentName: "Test")
 
         builder.addPoint(
@@ -111,7 +111,7 @@ final class CoordinateFormattingTests: XCTestCase {
             style: PointStyle(icon: .predefined(type: .pushpin, color: .white))
         )
 
-        let result = try! builder.build(as: .kml)
+        let result = try builder.build(as: .kml)
         let kml = String(data: result.data, encoding: .utf8)!
 
         // Should be "0.0,0.0" not "0.00000000,0.00000000"
