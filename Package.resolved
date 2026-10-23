@@ -1,10 +1,10 @@
 {
-  "originHash" : "17e50782305f6c29b65dd5cb050f0836dda7428e80849631e5782b62be7267e0",
+  "originHash" : "c0439dc8d3ea6d34c6574fa9bd37ccb0dbd7d7c1c81f557cc139fcb41d78d99c",
   "pins" : [
     {
-      "identity" : "vincenty",
+      "identity" : "vincentyswift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Haelix-Code/Vincenty",
+      "location" : "https://github.com/Haelix-Code/VincentySwift",
       "state" : {
         "revision" : "e029255ef3313dcf77cecb4faf64cf94a0812608",
         "version" : "0.0.1"
