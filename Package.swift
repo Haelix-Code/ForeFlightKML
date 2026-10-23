@@ -11,14 +11,14 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Haelix-Code/Vincenty", .upToNextMinor(from: "0.0.1")),
+        .package(url: "https://github.com/Haelix-Code/VincentySwift", .upToNextMinor(from: "0.0.1")),
         .package(url: "https://github.com/weichsel/ZIPFoundation.git", from: "0.9.0")
     ],
     targets: [
         .target(
             name: "ForeFlightKML",
             dependencies: [
-                .product(name: "Vincenty", package: "Vincenty"),
+                .product(name: "Vincenty", package: "VincentySwift"),
                 .product(name: "ZIPFoundation", package: "ZIPFoundation")
             ],
             resources: [
