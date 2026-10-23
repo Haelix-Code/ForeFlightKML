@@ -1,5 +1,5 @@
 import Foundation
-import GeodesySpherical
+import Vincenty
 
 internal enum SectorGeometry {
     static func generateSectorPoints(

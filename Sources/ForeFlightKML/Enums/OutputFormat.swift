@@ -1,4 +1,4 @@
-public enum OutputFormat {
+public enum OutputFormat: Sendable {
     case kml
     case kmz
 }

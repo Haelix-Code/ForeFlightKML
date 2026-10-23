@@ -1,7 +1,6 @@
 import SwiftUI
 import MapKit
 import CoreLocation
-import GeodesySpherical
 import ForeFlightKML
 
 struct MapViewRepresentable: UIViewRepresentable {

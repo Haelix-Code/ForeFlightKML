@@ -2,7 +2,7 @@
 /// to a KML fragment string.
 ///
 /// Implementers must produce valid KML (as a `String`) for that element.
-public protocol KMLElement {
+public protocol KMLElement: Sendable {
     func kmlString() -> String
     /// Write KML directly into a mutable string buffer for better performance.
     /// Default implementation falls back to `kmlString()`.
@@ -25,7 +25,7 @@ public extension KMLElement {
 
 /// Represents a top-level KML `Style` that has an id and a KML body.
 /// Use this to create reusable styles that placemarks can reference.
-public protocol KMLStyle {
+public protocol KMLStyle: Sendable {
     // Top-level style that must provide an id and full KML (usually a <Style id="..."> ... </Style>)
     func id() -> String
     func kmlString() -> String
@@ -44,7 +44,7 @@ public extension KMLStyle {
 
 /// Represents a style *sub-element* like `<LineStyle>` or `<PolyStyle>`.
 /// These are embedded inside a top-level `<Style>`.
-public protocol KMLSubStyle {
+public protocol KMLSubStyle: Sendable {
     // These produce the inner element tags (<LineStyle>...</LineStyle>, <PolyStyle>...</PolyStyle>).
     func kmlString() -> String
     /// Write sub-style KML directly into a mutable string buffer for better performance.

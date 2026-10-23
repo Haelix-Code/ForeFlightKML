@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// Represents a Feature Placemark that combines geometry with styling and metadata.
 ///
@@ -7,7 +7,7 @@ import GeodesySpherical
 /// - Optional name that appears in ForeFlight
 /// - Optional style that controls visual appearance
 ///
-public struct Placemark {
+public struct Placemark: Sendable {
     public private(set) var name: String?
     public private(set) var geometry: KMLElement
     public private(set) var styleUrl: String?

@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// A geographic point in 3D space that can be displayed as a marker in ForeFlight.
 ///

@@ -4,14 +4,23 @@ on:
   pull_request:
     branches:
       - main
+    # edited: re-check when an existing PR is retargeted to main.
+    types: [opened, synchronize, reopened, edited]
+
+permissions: {}
 
 jobs:
   check-branch:
     runs-on: ubuntu-latest
     steps:
       - name: Ensure PR comes from develop
+        # Passed through env, not ${{ }} in the script: branch names are set by
+        # whoever opens the PR, so interpolating one into the shell would run it.
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
-          if [ "${{ github.head_ref }}" != "develop" ]; then
-            echo "Only develop can be merged into main."
+          if [ "$HEAD_REF" != "develop" ] || [ "$HEAD_REPO" != "$GITHUB_REPOSITORY" ]; then
+            echo "Only develop can be merged into main (got '$HEAD_REF' from $HEAD_REPO)."
             exit 1
           fi

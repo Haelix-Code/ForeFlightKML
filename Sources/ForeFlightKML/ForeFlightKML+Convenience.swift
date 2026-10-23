@@ -1,5 +1,5 @@
 import Foundation
-import GeodesySpherical
+import Vincenty
 
 extension ForeFlightKMLBuilder {
 
@@ -293,8 +293,10 @@ extension ForeFlightKMLBuilder {
     }
 
     /// Add a text-only label placemark at a coordinate.
-    /// This uses a transparent 1×1 icon to enable ForeFlight’s “badge” rendering, with the badge color driven by `IconStyle.color`.
-    /// - Important: Because this relies on a local icon asset, the output **must be exported as KMZ** (not plain KML) for the label to render correctly.
+    /// This uses a transparent 1×1 icon to enable ForeFlight’s “badge” rendering,
+    /// with the badge color driven by `IconStyle.color`.
+    /// - Important: Because this relies on a local icon asset, the output **must be exported as KMZ**
+    ///   (not plain KML) for the label to render correctly.
     /// - Parameters:
     ///   - text: Label text displayed in ForeFlight
     ///   - coordinate: Geographic coordinate

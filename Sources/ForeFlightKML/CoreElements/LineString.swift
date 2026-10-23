@@ -1,4 +1,4 @@
-import GeodesySpherical
+import Vincenty
 
 /// A line string connecting multiple coordinates in order.
 /// Used for routes, boundaries, or any connected line geometry.

@@ -1,5 +1,4 @@
 import XCTest
-import GeodesySpherical
 @testable import ForeFlightKML
 
 class XMLTestHelper {
