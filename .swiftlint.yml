@@ -1,8 +1,7 @@
+# Shared rules (excludes .build, allows short identifiers): https://github.com/Haelix-Code/swift-ci
+parent_config: https://raw.githubusercontent.com/Haelix-Code/swift-ci/v1/swiftlint/base.yml
+
 excluded:
-  - .build
   - Tests/UserMapShapeTests/UserMapShapesSampleIndividualTests.swift
   - Tests/UserMapShapeTests/UserMapShapesSampleFullTest.swift
   - Example/ForeFlightKMLDemo/
-identifier_name:
-  min_length: 1
-  max_length: 40
